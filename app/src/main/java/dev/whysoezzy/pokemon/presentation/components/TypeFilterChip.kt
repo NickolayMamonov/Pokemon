@@ -1,0 +1,35 @@
+package dev.whysoezzy.pokemon.presentation.components
+
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.sp
+import dev.whysoezzy.pokemon.presentation.utils.getTypeColor
+import java.util.Locale
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TypeFilterChip(
+    type: String,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
+    FilterChip(
+        onClick = onClick,
+        label = {
+            Text(
+                text = type.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                },
+                fontSize = 14.sp
+            )
+        },
+        selected = isSelected,
+        colors = FilterChipDefaults.filterChipColors(
+            selectedContainerColor = getTypeColor(type).copy(alpha = 0.3f),
+            selectedLabelColor = getTypeColor(type)
+        )
+    )
+}
