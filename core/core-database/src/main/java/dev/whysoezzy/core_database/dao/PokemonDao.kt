@@ -1,11 +1,11 @@
-package dev.whysoezzy.pokemon.data.local.dao
+package dev.whysoezzy.core_database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import dev.whysoezzy.pokemon.data.local.entity.PokemonEntity
-import dev.whysoezzy.pokemon.data.local.entity.PokemonListItemEntity
+import dev.whysoezzy.core_database.entity.PokemonEntity
+import dev.whysoezzy.core_database.entity.PokemonListItemEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

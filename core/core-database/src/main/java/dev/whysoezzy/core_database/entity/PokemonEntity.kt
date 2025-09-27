@@ -1,4 +1,4 @@
-package dev.whysoezzy.pokemon.data.local.entity
+package dev.whysoezzy.core_database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

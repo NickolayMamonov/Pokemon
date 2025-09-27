@@ -1,12 +1,12 @@
-package dev.whysoezzy.pokemon.data.local.database
+package dev.whysoezzy.core_database.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import dev.whysoezzy.pokemon.data.local.dao.PokemonDao
-import dev.whysoezzy.pokemon.data.local.entity.PokemonConverters
-import dev.whysoezzy.pokemon.data.local.entity.PokemonEntity
-import dev.whysoezzy.pokemon.data.local.entity.PokemonListItemEntity
+import dev.whysoezzy.core_database.dao.PokemonDao
+import dev.whysoezzy.core_database.entity.PokemonConverters
+import dev.whysoezzy.core_database.entity.PokemonEntity
+import dev.whysoezzy.core_database.entity.PokemonListItemEntity
 
 @Database(
     entities = [PokemonEntity::class, PokemonListItemEntity::class],

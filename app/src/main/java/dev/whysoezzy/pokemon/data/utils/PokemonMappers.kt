@@ -1,11 +1,11 @@
 package dev.whysoezzy.pokemon.data.utils
 
+import dev.whysoezzy.core_database.entity.PokemonEntity
+import dev.whysoezzy.core_database.entity.PokemonStatEntity
+import dev.whysoezzy.core_database.entity.PokemonTypeEntity
 import dev.whysoezzy.domain.model.Pokemon
 import dev.whysoezzy.domain.model.PokemonStat
 import dev.whysoezzy.domain.model.PokemonType
-import dev.whysoezzy.pokemon.data.local.entity.PokemonEntity
-import dev.whysoezzy.pokemon.data.local.entity.PokemonStatEntity
-import dev.whysoezzy.pokemon.data.local.entity.PokemonTypeEntity
 
 
 fun PokemonEntity.toDomainModel(): Pokemon {
