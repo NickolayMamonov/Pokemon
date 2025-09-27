@@ -1,4 +1,4 @@
-package dev.whysoezzy.pokemon.presentation.components.stats
+package dev.whysoezzy.core_uikit.components.stats
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

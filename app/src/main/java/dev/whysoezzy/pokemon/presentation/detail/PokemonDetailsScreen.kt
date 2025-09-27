@@ -27,9 +27,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.whysoezzy.core_common.extensions.toDisplayName
 import dev.whysoezzy.core_common.extensions.toTypeColor
+import dev.whysoezzy.core_uikit.components.errors.ErrorMessageDetail
+import dev.whysoezzy.core_uikit.components.loadings.LoadingIndicator
 import dev.whysoezzy.domain.model.Pokemon
-import dev.whysoezzy.pokemon.presentation.components.errors.ErrorMessageDetail
-import dev.whysoezzy.pokemon.presentation.components.loadings.LoadingIndicator
 import dev.whysoezzy.pokemon.presentation.components.sections.PokemonBattleStatsSection
 import dev.whysoezzy.pokemon.presentation.components.sections.PokemonHeaderSection
 import dev.whysoezzy.pokemon.presentation.components.sections.PokemonPhysicalStatsSection

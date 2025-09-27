@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.whysoezzy.core_common.extensions.toStatDisplayName
+import dev.whysoezzy.core_uikit.components.stats.StatBar
 import dev.whysoezzy.domain.model.PokemonStat
-import dev.whysoezzy.pokemon.presentation.components.stats.StatBar
 import timber.log.Timber
 
 @Composable

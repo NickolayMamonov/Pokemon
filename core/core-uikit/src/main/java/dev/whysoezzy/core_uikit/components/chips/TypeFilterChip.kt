@@ -1,4 +1,4 @@
-package dev.whysoezzy.pokemon.presentation.components
+package dev.whysoezzy.core_uikit.components.chips
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip

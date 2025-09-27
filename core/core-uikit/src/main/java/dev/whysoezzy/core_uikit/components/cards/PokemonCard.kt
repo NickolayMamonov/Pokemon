@@ -1,4 +1,4 @@
-package dev.whysoezzy.pokemon.presentation.components.cards
+package dev.whysoezzy.core_uikit.components.cards
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,12 +23,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import dev.whysoezzy.core_common.extensions.toDisplayName
 import dev.whysoezzy.core_common.extensions.toTypeColor
+import dev.whysoezzy.core_uikit.components.stats.StatItem
 import dev.whysoezzy.domain.model.Pokemon
-import dev.whysoezzy.pokemon.presentation.components.stats.StatItem
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

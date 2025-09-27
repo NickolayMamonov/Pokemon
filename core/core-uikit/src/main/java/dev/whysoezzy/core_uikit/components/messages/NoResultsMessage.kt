@@ -1,4 +1,4 @@
-package dev.whysoezzy.pokemon.presentation.components
+package dev.whysoezzy.core_uikit.components.messages
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

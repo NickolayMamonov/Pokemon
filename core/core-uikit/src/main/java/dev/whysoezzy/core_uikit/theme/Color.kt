@@ -1,6 +1,7 @@
-package dev.whysoezzy.pokemon.presentation.theme
+package dev.whysoezzy.core_uikit.theme
 
 import androidx.compose.ui.graphics.Color
+
 
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)

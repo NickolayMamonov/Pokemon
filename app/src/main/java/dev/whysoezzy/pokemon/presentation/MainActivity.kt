@@ -10,8 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import dev.whysoezzy.core_uikit.theme.PokemonTheme
 import dev.whysoezzy.pokemon.presentation.main.MainScreen
-import dev.whysoezzy.pokemon.presentation.theme.PokemonTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.whysoezzy.pokemon.presentation.components.stats.PhysicalStatItem
+import dev.whysoezzy.core_uikit.components.stats.PhysicalStatItem
 
 @Composable
 fun PokemonPhysicalStatsSection(

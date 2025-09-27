@@ -1,4 +1,4 @@
-package dev.whysoezzy.pokemon.presentation.theme
+package dev.whysoezzy.core_uikit.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

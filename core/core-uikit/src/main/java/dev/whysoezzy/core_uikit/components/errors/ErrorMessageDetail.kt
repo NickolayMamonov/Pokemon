@@ -1,4 +1,4 @@
-package dev.whysoezzy.pokemon.presentation.components.errors
+package dev.whysoezzy.core_uikit.components.errors
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
