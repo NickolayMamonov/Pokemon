@@ -1,12 +1,12 @@
 package dev.whysoezzy.pokemon.presentation.main
 
+import PokemonListScreen
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.whysoezzy.pokemon.presentation.detail.PokemonDetailsScreen
-import dev.whysoezzy.pokemon.presentation.list.PokemonListScreen
+import dev.whysoezzy.feature_pokemon_details.presentation.PokemonDetailsScreen
 import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 

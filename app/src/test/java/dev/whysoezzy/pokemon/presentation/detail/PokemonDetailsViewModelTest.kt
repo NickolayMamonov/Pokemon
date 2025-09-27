@@ -1,13 +1,11 @@
 package dev.whysoezzy.pokemon.presentation.detail
 
-//import dev.whysoezzy.pokemon.domain.model.Pokemon
-//import dev.whysoezzy.pokemon.domain.model.PokemonStat
-//import dev.whysoezzy.pokemon.domain.model.PokemonType
-//import dev.whysoezzy.pokemon.domain.usecase.GetPokemonDetailsUseCase
+
 import dev.whysoezzy.domain.model.Pokemon
 import dev.whysoezzy.domain.model.PokemonStat
 import dev.whysoezzy.domain.model.PokemonType
 import dev.whysoezzy.domain.usecase.GetPokemonDetailsUseCase
+import dev.whysoezzy.feature_pokemon_details.presentation.PokemonDetailsViewModel
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

@@ -10,6 +10,8 @@ import dev.whysoezzy.domain.model.PokemonType
 import dev.whysoezzy.domain.usecase.FilterPokemonUseCase
 import dev.whysoezzy.domain.usecase.GetPokemonDetailsUseCase
 import dev.whysoezzy.domain.usecase.GetPokemonListUseCase
+import dev.whysoezzy.feature_pokemon_list.presentation.PokemonListViewModel
+
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

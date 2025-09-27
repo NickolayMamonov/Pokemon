@@ -1,7 +1,7 @@
 package dev.whysoezzy.pokemon.di
 
-import dev.whysoezzy.pokemon.presentation.detail.PokemonDetailsViewModel
-import dev.whysoezzy.pokemon.presentation.list.PokemonListViewModel
+import dev.whysoezzy.feature_pokemon_details.presentation.PokemonDetailsViewModel
+import dev.whysoezzy.feature_pokemon_list.presentation.PokemonListViewModel
 import dev.whysoezzy.pokemon.presentation.main.MainViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
