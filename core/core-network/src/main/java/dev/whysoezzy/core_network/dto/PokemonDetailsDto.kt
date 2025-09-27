@@ -1,6 +1,5 @@
-package dev.whysoezzy.pokemon.data.remote.dto
+package dev.whysoezzy.core_network.dto
 
-import com.google.gson.annotations.SerializedName
 
 data class PokemonDetailsDto(
     val id: Int,
@@ -36,7 +35,7 @@ data class TypeDto(
 )
 
 data class StatDto(
-    @SerializedName("base_stat")
+//    @SerializedName("base_stat")
     val baseStat: Int,
     val effort: Int,
     val stat: StatInfoDto

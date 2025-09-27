@@ -1,6 +1,6 @@
-package dev.whysoezzy.pokemon.di
+package dev.whysoezzy.core_network.di
 
-import dev.whysoezzy.pokemon.data.remote.PokemonApi
+import dev.whysoezzy.core_network.PokemonApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module

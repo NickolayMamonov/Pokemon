@@ -1,7 +1,7 @@
-package dev.whysoezzy.pokemon.data.remote
+package dev.whysoezzy.core_network
 
-import dev.whysoezzy.pokemon.data.remote.dto.PokemonDetailsDto
-import dev.whysoezzy.pokemon.data.remote.dto.PokemonListResponseDto
+import dev.whysoezzy.core_network.dto.PokemonDetailsDto
+import dev.whysoezzy.core_network.dto.PokemonListResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

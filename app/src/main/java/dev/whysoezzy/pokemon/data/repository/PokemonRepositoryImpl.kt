@@ -1,11 +1,11 @@
 package dev.whysoezzy.pokemon.data.repository
 
+import dev.whysoezzy.core_network.PokemonApi
 import dev.whysoezzy.domain.model.PaginatedData
 import dev.whysoezzy.domain.model.Pokemon
 import dev.whysoezzy.domain.model.PokemonListItem
 import dev.whysoezzy.domain.repository.PokemonRepository
 import dev.whysoezzy.pokemon.data.local.dao.PokemonDao
-import dev.whysoezzy.pokemon.data.remote.PokemonApi
 import dev.whysoezzy.pokemon.data.utils.toDomainModel
 import dev.whysoezzy.pokemon.data.utils.toEntity
 import kotlinx.coroutines.CoroutineName

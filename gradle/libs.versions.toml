@@ -10,7 +10,7 @@ activityCompose = "1.10.1"
 composeBom = "2025.08.00"
 retrofit = "3.0.0"
 ksp = "2.2.10-2.0.2"
-koinAndroidxCompose = "4.1.0"
+koin = "4.1.0"
 converterGson = "3.0.0"
 coil = "2.7.0"
 lifecycleViewmodelCompose = "2.9.2"
@@ -41,11 +41,14 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
+
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }

@@ -1,9 +1,9 @@
 package dev.whysoezzy.pokemon.data.utils
 
+import dev.whysoezzy.core_network.dto.PokemonDetailsDto
 import dev.whysoezzy.domain.model.Pokemon
 import dev.whysoezzy.domain.model.PokemonStat
 import dev.whysoezzy.domain.model.PokemonType
-import dev.whysoezzy.pokemon.data.remote.dto.PokemonDetailsDto
 
 import timber.log.Timber
 

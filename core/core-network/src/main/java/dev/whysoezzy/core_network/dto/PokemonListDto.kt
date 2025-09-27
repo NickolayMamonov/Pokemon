@@ -1,4 +1,4 @@
-package dev.whysoezzy.pokemon.data.remote.dto
+package dev.whysoezzy.core_network.dto
 
 data class PokemonListResponseDto(
     val count: Int,
