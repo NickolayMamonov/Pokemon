@@ -28,12 +28,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SearchAndFilterBar(
+    modifier: Modifier = Modifier,
     searchQuery: String,
     onSearchQueryChange: (String) -> Unit,
     onFilterClick: () -> Unit,
     hasActiveFilters: Boolean,
-    onClearFilters: () -> Unit,
-    modifier: Modifier = Modifier
+    onClearFilters: () -> Unit
 ) {
     Column(
         modifier = Modifier.padding(16.dp)
