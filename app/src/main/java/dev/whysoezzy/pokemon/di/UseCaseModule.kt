@@ -1,8 +1,9 @@
 package dev.whysoezzy.pokemon.di
 
-import dev.whysoezzy.pokemon.domain.usecase.FilterPokemonUseCase
-import dev.whysoezzy.pokemon.domain.usecase.GetPokemonDetailsUseCase
-import dev.whysoezzy.pokemon.domain.usecase.GetPokemonListUseCase
+
+import dev.whysoezzy.domain.usecase.FilterPokemonUseCase
+import dev.whysoezzy.domain.usecase.GetPokemonDetailsUseCase
+import dev.whysoezzy.domain.usecase.GetPokemonListUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {

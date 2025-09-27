@@ -2,7 +2,7 @@ package dev.whysoezzy.pokemon.presentation.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.whysoezzy.pokemon.domain.model.Pokemon
+import dev.whysoezzy.domain.model.Pokemon
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

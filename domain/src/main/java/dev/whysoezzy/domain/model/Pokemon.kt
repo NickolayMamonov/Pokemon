@@ -1,4 +1,4 @@
-package dev.whysoezzy.pokemon.domain.model
+package dev.whysoezzy.domain.model
 
 data class Pokemon(
     val id: Int,

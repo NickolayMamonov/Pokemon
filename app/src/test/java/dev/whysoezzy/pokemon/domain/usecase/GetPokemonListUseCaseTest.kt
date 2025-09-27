@@ -1,8 +1,10 @@
 package dev.whysoezzy.pokemon.domain.usecase
 
-import dev.whysoezzy.pokemon.domain.model.PaginatedData
-import dev.whysoezzy.pokemon.domain.model.PokemonListItem
-import dev.whysoezzy.pokemon.domain.repository.PokemonRepository
+
+import dev.whysoezzy.domain.model.PaginatedData
+import dev.whysoezzy.domain.model.PokemonListItem
+import dev.whysoezzy.domain.repository.PokemonRepository
+import dev.whysoezzy.domain.usecase.GetPokemonListUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

@@ -1,9 +1,11 @@
 package dev.whysoezzy.pokemon.domain.usecase
 
-import dev.whysoezzy.pokemon.domain.model.Pokemon
-import dev.whysoezzy.pokemon.domain.model.PokemonStat
-import dev.whysoezzy.pokemon.domain.model.PokemonType
-import dev.whysoezzy.pokemon.domain.repository.PokemonRepository
+
+import dev.whysoezzy.domain.model.Pokemon
+import dev.whysoezzy.domain.model.PokemonStat
+import dev.whysoezzy.domain.model.PokemonType
+import dev.whysoezzy.domain.repository.PokemonRepository
+import dev.whysoezzy.domain.usecase.GetPokemonDetailsUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

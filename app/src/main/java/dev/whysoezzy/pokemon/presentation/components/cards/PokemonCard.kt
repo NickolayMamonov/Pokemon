@@ -24,18 +24,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import dev.whysoezzy.pokemon.domain.model.Pokemon
+import dev.whysoezzy.core_common.extensions.toDisplayName
+import dev.whysoezzy.core_common.extensions.toTypeColor
+import dev.whysoezzy.domain.model.Pokemon
 import dev.whysoezzy.pokemon.presentation.components.stats.StatItem
-import dev.whysoezzy.pokemon.presentation.utils.getTypeColor
-import java.util.Locale
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonCard(
+    modifier: Modifier = Modifier,
     pokemon: Pokemon,
     onPokemonClick: ((Pokemon) -> Unit)? = null,
-    modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier
@@ -67,9 +67,7 @@ fun PokemonCard(
 
             // Имя покемона
             Text(
-                text = pokemon.name.replaceFirstChar {
-                    if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
-                },
+                text = pokemon.name.toDisplayName(),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -85,9 +83,10 @@ fun PokemonCard(
                 pokemon.types.take(2).forEach { type ->
                     Card(
                         colors = CardDefaults.cardColors(
-                            containerColor = getTypeColor(
-                                type.name
-                            ).copy(alpha = 0.3f)
+                            containerColor = type.name.toTypeColor().copy(alpha = 0.3f)
+//                                getTypeColor(
+//                                type.name
+//                            ).copy(alpha = 0.3f)
                         ),
                         shape = RoundedCornerShape(8.dp),
                         modifier = Modifier.weight(1f)
@@ -100,9 +99,11 @@ fun PokemonCard(
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.labelSmall,
                             fontWeight = FontWeight.Bold,
-                            color = getTypeColor(
-                                type.name
-                            ),
+                            color = type.name.toTypeColor()
+//                                getTypeColor(
+//                                type.name
+//                            )
+                            ,
                             fontSize = 10.sp
                         )
                     }

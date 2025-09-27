@@ -1,8 +1,8 @@
-package dev.whysoezzy.pokemon.domain.usecase
+package dev.whysoezzy.domain.usecase
 
-import dev.whysoezzy.pokemon.domain.model.Pokemon
-import dev.whysoezzy.pokemon.domain.model.PokemonFilter
-import dev.whysoezzy.pokemon.domain.model.SortBy
+import dev.whysoezzy.domain.model.Pokemon
+import dev.whysoezzy.domain.model.PokemonFilter
+import dev.whysoezzy.domain.model.SortBy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

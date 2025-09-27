@@ -17,9 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.whysoezzy.pokemon.domain.model.PokemonStat
+import dev.whysoezzy.core_common.extensions.toStatDisplayName
+import dev.whysoezzy.domain.model.PokemonStat
 import dev.whysoezzy.pokemon.presentation.components.stats.StatBar
-import dev.whysoezzy.pokemon.presentation.utils.getStatDisplayName
 import timber.log.Timber
 
 @Composable
@@ -55,7 +55,7 @@ fun PokemonBattleStatsSection(
 
             stats.forEach { stat ->
                 StatBar(
-                    statName = getStatDisplayName(stat.name),
+                    statName = stat.name.toStatDisplayName(),
                     statValue = stat.baseStat,
                     maxValue = 255,
                     effort = if (showExtended) stat.effort else null

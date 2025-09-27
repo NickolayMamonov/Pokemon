@@ -1,9 +1,10 @@
 package dev.whysoezzy.pokemon.data.utils
 
+import dev.whysoezzy.domain.model.Pokemon
+import dev.whysoezzy.domain.model.PokemonStat
+import dev.whysoezzy.domain.model.PokemonType
 import dev.whysoezzy.pokemon.data.remote.dto.PokemonDetailsDto
-import dev.whysoezzy.pokemon.domain.model.Pokemon
-import dev.whysoezzy.pokemon.domain.model.PokemonStat
-import dev.whysoezzy.pokemon.domain.model.PokemonType
+
 import timber.log.Timber
 
 fun PokemonDetailsDto.toDomainModel(): Pokemon {

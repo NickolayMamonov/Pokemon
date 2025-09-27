@@ -1,8 +1,9 @@
 package dev.whysoezzy.pokemon.presentation.main
 
-import dev.whysoezzy.pokemon.domain.model.Pokemon
-import dev.whysoezzy.pokemon.domain.model.PokemonStat
-import dev.whysoezzy.pokemon.domain.model.PokemonType
+
+import dev.whysoezzy.domain.model.Pokemon
+import dev.whysoezzy.domain.model.PokemonStat
+import dev.whysoezzy.domain.model.PokemonType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher

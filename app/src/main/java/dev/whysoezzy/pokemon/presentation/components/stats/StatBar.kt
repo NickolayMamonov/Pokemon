@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.whysoezzy.pokemon.presentation.utils.getStatColor
+import dev.whysoezzy.core_common.extensions.toStatColor
 
 @Composable
 fun StatBar(
@@ -57,7 +57,7 @@ fun StatBar(
                 .fillMaxWidth()
                 .height(8.dp)
                 .clip(RoundedCornerShape(4.dp)),
-            color = getStatColor(statValue),
+            color = statValue.toStatColor(),
             trackColor = MaterialTheme.colorScheme.surfaceVariant
         )
     }

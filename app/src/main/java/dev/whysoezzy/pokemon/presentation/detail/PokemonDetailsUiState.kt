@@ -1,6 +1,8 @@
 package dev.whysoezzy.pokemon.presentation.detail
 
-import dev.whysoezzy.pokemon.domain.model.Pokemon
+import dev.whysoezzy.domain.model.Pokemon
+
+//import dev.whysoezzy.pokemon.domain.model.Pokemon
 
 data class PokemonDetailsUiState(
     val pokemon: Pokemon? = null,

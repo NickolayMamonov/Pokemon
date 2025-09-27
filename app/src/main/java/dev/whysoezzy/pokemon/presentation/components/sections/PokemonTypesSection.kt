@@ -16,9 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.whysoezzy.pokemon.domain.model.PokemonType
-import dev.whysoezzy.pokemon.presentation.utils.getTypeColor
-import java.util.Locale
+import dev.whysoezzy.core_common.extensions.toDisplayName
+import dev.whysoezzy.core_common.extensions.toTypeColor
+import dev.whysoezzy.domain.model.PokemonType
 
 @Composable
 fun PokemonTypesSection(
@@ -46,18 +46,16 @@ fun PokemonTypesSection(
                 types.forEach { type ->
                     Card(
                         colors = CardDefaults.cardColors(
-                            containerColor = getTypeColor(type.name).copy(alpha = 0.3f)
+                            containerColor = type.name.toTypeColor().copy(alpha = 0.3f)
                         ),
                         shape = RoundedCornerShape(20.dp)
                     ) {
                         Text(
-                            text = type.name.replaceFirstChar {
-                                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
-                            },
+                            text = type.name.toDisplayName(),
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Medium,
-                            color = getTypeColor(type.name)
+                            color = type.name.toTypeColor()
                         )
                     }
                 }

@@ -1,7 +1,7 @@
-package dev.whysoezzy.pokemon.domain.usecase
+package dev.whysoezzy.domain.usecase
 
-import dev.whysoezzy.pokemon.domain.model.Pokemon
-import dev.whysoezzy.pokemon.domain.repository.PokemonRepository
+import dev.whysoezzy.domain.model.Pokemon
+import dev.whysoezzy.domain.repository.PokemonRepository
 
 class GetPokemonDetailsUseCase(
     private val repository: PokemonRepository

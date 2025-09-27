@@ -24,7 +24,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import dev.whysoezzy.pokemon.domain.model.Pokemon
+import dev.whysoezzy.domain.model.Pokemon
 
 @Composable
 fun PokemonHeaderSection(

@@ -1,10 +1,12 @@
 package dev.whysoezzy.pokemon.domain.usecase
 
-import dev.whysoezzy.pokemon.domain.model.Pokemon
-import dev.whysoezzy.pokemon.domain.model.PokemonFilter
-import dev.whysoezzy.pokemon.domain.model.PokemonStat
-import dev.whysoezzy.pokemon.domain.model.PokemonType
-import dev.whysoezzy.pokemon.domain.model.SortBy
+
+import dev.whysoezzy.domain.model.Pokemon
+import dev.whysoezzy.domain.model.PokemonFilter
+import dev.whysoezzy.domain.model.PokemonStat
+import dev.whysoezzy.domain.model.PokemonType
+import dev.whysoezzy.domain.model.SortBy
+import dev.whysoezzy.domain.usecase.FilterPokemonUseCase
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

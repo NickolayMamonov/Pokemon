@@ -16,8 +16,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import dev.whysoezzy.pokemon.domain.model.SortBy
-import dev.whysoezzy.pokemon.presentation.utils.getSortByDisplayName
+import dev.whysoezzy.core_common.extensions.getSortByDisplayName
+import dev.whysoezzy.domain.model.SortBy
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,14 +1,15 @@
 package dev.whysoezzy.pokemon.presentation.list
 
-import dev.whysoezzy.pokemon.domain.model.PaginatedData
-import dev.whysoezzy.pokemon.domain.model.Pokemon
-import dev.whysoezzy.pokemon.domain.model.PokemonFilter
-import dev.whysoezzy.pokemon.domain.model.PokemonListItem
-import dev.whysoezzy.pokemon.domain.model.PokemonStat
-import dev.whysoezzy.pokemon.domain.model.PokemonType
-import dev.whysoezzy.pokemon.domain.usecase.FilterPokemonUseCase
-import dev.whysoezzy.pokemon.domain.usecase.GetPokemonDetailsUseCase
-import dev.whysoezzy.pokemon.domain.usecase.GetPokemonListUseCase
+
+import dev.whysoezzy.domain.model.PaginatedData
+import dev.whysoezzy.domain.model.Pokemon
+import dev.whysoezzy.domain.model.PokemonFilter
+import dev.whysoezzy.domain.model.PokemonListItem
+import dev.whysoezzy.domain.model.PokemonStat
+import dev.whysoezzy.domain.model.PokemonType
+import dev.whysoezzy.domain.usecase.FilterPokemonUseCase
+import dev.whysoezzy.domain.usecase.GetPokemonDetailsUseCase
+import dev.whysoezzy.domain.usecase.GetPokemonListUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

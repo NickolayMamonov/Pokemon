@@ -25,17 +25,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.whysoezzy.pokemon.domain.model.Pokemon
+import dev.whysoezzy.core_common.extensions.toDisplayName
+import dev.whysoezzy.core_common.extensions.toTypeColor
+import dev.whysoezzy.domain.model.Pokemon
 import dev.whysoezzy.pokemon.presentation.components.errors.ErrorMessageDetail
 import dev.whysoezzy.pokemon.presentation.components.loadings.LoadingIndicator
 import dev.whysoezzy.pokemon.presentation.components.sections.PokemonBattleStatsSection
 import dev.whysoezzy.pokemon.presentation.components.sections.PokemonHeaderSection
 import dev.whysoezzy.pokemon.presentation.components.sections.PokemonPhysicalStatsSection
 import dev.whysoezzy.pokemon.presentation.components.sections.PokemonTypesSection
-import dev.whysoezzy.pokemon.presentation.utils.getTypeColor
 import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,7 +47,7 @@ fun PokemonDetailsScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
     val primaryType = pokemon.types.firstOrNull()?.name ?: "normal"
-    val backgroundColor = getTypeColor(primaryType)
+    val backgroundColor = primaryType.toTypeColor()
 
     // Загружаем детали покемона в ViewModel
     LaunchedEffect(pokemon) {
@@ -60,9 +60,7 @@ fun PokemonDetailsScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = pokemon.name.replaceFirstChar {
-                            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
-                        },
+                        text = pokemon.name.toDisplayName(),
                         fontWeight = FontWeight.Bold,
                         fontSize = 24.sp
                     )

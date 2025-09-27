@@ -1,10 +1,11 @@
 package dev.whysoezzy.pokemon.data.utils
 
+import dev.whysoezzy.domain.model.PaginatedData
+import dev.whysoezzy.domain.model.PokemonListItem
 import dev.whysoezzy.pokemon.data.local.entity.PokemonListItemEntity
 import dev.whysoezzy.pokemon.data.remote.dto.PokemonListResponseDto
 import dev.whysoezzy.pokemon.data.remote.dto.PokemonResultDto
-import dev.whysoezzy.pokemon.domain.model.PaginatedData
-import dev.whysoezzy.pokemon.domain.model.PokemonListItem
+
 
 fun PokemonListResponseDto.toDomainModel(
     currentOffset: Int,

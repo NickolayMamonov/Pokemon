@@ -2,8 +2,8 @@ package dev.whysoezzy.pokemon.presentation.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.whysoezzy.pokemon.domain.model.Pokemon
-import dev.whysoezzy.pokemon.domain.usecase.GetPokemonDetailsUseCase
+import dev.whysoezzy.domain.model.Pokemon
+import dev.whysoezzy.domain.usecase.GetPokemonDetailsUseCase
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.ensureActive

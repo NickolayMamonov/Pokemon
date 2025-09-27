@@ -1,8 +1,8 @@
-package dev.whysoezzy.pokemon.domain.usecase
+package dev.whysoezzy.domain.usecase
 
-import dev.whysoezzy.pokemon.domain.model.PaginatedData
-import dev.whysoezzy.pokemon.domain.model.PokemonListItem
-import dev.whysoezzy.pokemon.domain.repository.PokemonRepository
+import dev.whysoezzy.domain.model.PaginatedData
+import dev.whysoezzy.domain.model.PokemonListItem
+import dev.whysoezzy.domain.repository.PokemonRepository
 
 class GetPokemonListUseCase(
     private val repository: PokemonRepository

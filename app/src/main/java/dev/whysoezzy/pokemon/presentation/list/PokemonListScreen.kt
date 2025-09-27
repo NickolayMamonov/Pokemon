@@ -32,8 +32,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.whysoezzy.pokemon.domain.model.Pokemon
-import dev.whysoezzy.pokemon.domain.model.SortBy
+import dev.whysoezzy.domain.model.Pokemon
+import dev.whysoezzy.domain.model.SortBy
+
 import dev.whysoezzy.pokemon.presentation.components.FilterBottomSheet
 import dev.whysoezzy.pokemon.presentation.components.NoResultsMessage
 import dev.whysoezzy.pokemon.presentation.components.SearchAndFilterBar

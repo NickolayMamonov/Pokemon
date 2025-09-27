@@ -2,11 +2,16 @@ package dev.whysoezzy.pokemon.presentation.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.whysoezzy.pokemon.domain.model.PokemonFilter
-import dev.whysoezzy.pokemon.domain.model.PokemonListItem
-import dev.whysoezzy.pokemon.domain.usecase.FilterPokemonUseCase
-import dev.whysoezzy.pokemon.domain.usecase.GetPokemonDetailsUseCase
-import dev.whysoezzy.pokemon.domain.usecase.GetPokemonListUseCase
+import dev.whysoezzy.domain.model.PokemonFilter
+import dev.whysoezzy.domain.model.PokemonListItem
+//import dev.whysoezzy.pokemon.domain.model.PokemonFilter
+//import dev.whysoezzy.pokemon.domain.model.PokemonListItem
+//import dev.whysoezzy.pokemon.domain.usecase.FilterPokemonUseCase
+//import dev.whysoezzy.pokemon.domain.usecase.GetPokemonDetailsUseCase
+//import dev.whysoezzy.pokemon.domain.usecase.GetPokemonListUseCase
+import dev.whysoezzy.domain.usecase.FilterPokemonUseCase
+import dev.whysoezzy.domain.usecase.GetPokemonDetailsUseCase
+import dev.whysoezzy.domain.usecase.GetPokemonListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay

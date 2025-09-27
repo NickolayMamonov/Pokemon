@@ -1,7 +1,8 @@
 package dev.whysoezzy.pokemon.presentation.list
 
-import dev.whysoezzy.pokemon.domain.model.Pokemon
-import dev.whysoezzy.pokemon.domain.model.PokemonListItem
+import dev.whysoezzy.domain.model.Pokemon
+import dev.whysoezzy.domain.model.PokemonListItem
+
 
 data class PokemonListUiState(
     val pokemonList: List<PokemonListItem> = emptyList(),

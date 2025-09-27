@@ -1,6 +1,7 @@
 package dev.whysoezzy.pokemon.presentation.main
 
-import dev.whysoezzy.pokemon.domain.model.Pokemon
+import dev.whysoezzy.domain.model.Pokemon
+
 
 data class MainUiState(
     val currentScreen: Screen = Screen.PokemonList,

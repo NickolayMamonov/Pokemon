@@ -33,7 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.whysoezzy.pokemon.domain.model.PokemonFilter
+import dev.whysoezzy.domain.model.PokemonFilter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
