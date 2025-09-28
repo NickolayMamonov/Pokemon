@@ -27,8 +27,8 @@ fun String.toTypeColor(): Color = when (this.lowercase()) {
 }
 
 fun Int.toStatColor(): Color = when {
-    this.toInt() >= 120 -> Color(0xFF4CAF50) // Зеленый для высоких значений
-    this.toInt() >= 80 -> Color(0xFFFF9800)  // Оранжевый для средних значений
-    this.toInt() >= 50 -> Color(0xFFFFC107)  // Желтый для низких значений
+    this >= 120 -> Color(0xFF4CAF50) // Зеленый для высоких значений
+    this >= 80 -> Color(0xFFFF9800)  // Оранжевый для средних значений
+    this >= 50 -> Color(0xFFFFC107)  // Желтый для низких значений
     else -> Color(0xFFF44336)             // Красный для очень низких значений
 }

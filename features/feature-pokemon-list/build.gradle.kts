@@ -36,6 +36,7 @@ android {
 
 dependencies {
     implementation(project(":core:core-uikit"))
+    implementation(project(":core:core-data"))
     implementation(project(":domain"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -48,5 +49,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.timber)
     implementation(libs.koin.androidx.compose)
+    implementation(libs.kotlinx.coroutines.android)
 
 }

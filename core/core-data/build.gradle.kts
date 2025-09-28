@@ -46,4 +46,6 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.timber)
     api(libs.kotlinx.coroutines.android)
+    api(libs.kotlinx.coroutines.core)
+    api(libs.androidx.lifecycle.viewmodel.compose)
 }
