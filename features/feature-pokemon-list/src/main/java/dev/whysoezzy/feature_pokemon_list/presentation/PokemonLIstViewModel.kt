@@ -341,7 +341,7 @@ class PokemonListViewModel(
                 val nextOffset = currentState.pokemonList.size
                 getPokemonListUseCase(limit = PAGE_SIZE, offset = nextOffset).fold(
                     onSuccess = { paginatedData ->
-                        val preloadItems = paginatedData.items.take(5)
+                        val preloadItems = paginatedData.items.take(6)
                         loadPokemonDetailsAsync(preloadItems)
                         Timber.d("Preloaded ${preloadItems.size} Pokemon details")
                     },

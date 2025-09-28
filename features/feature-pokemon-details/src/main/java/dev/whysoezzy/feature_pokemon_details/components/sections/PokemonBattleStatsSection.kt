@@ -7,8 +7,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,13 +29,20 @@ import timber.log.Timber
 
 @Composable
 fun PokemonBattleStatsSection(
+    modifier: Modifier = Modifier,
     stats: List<PokemonStat>,
     showExtended: Boolean,
-    modifier: Modifier = Modifier
+    onToggleExtended: ((Boolean) -> Unit)? = null
 ) {
     LaunchedEffect(stats) {
         Timber.d("Stats in battle section: ${stats.map { "${it.name}: ${it.baseStat}" }}")
+        Timber.d("Stats count: ${stats.size}")
+        if (stats.isNotEmpty()) {
+            val totalStats = stats.sumOf { it.baseStat }
+            Timber.d("Total stats calculated: $totalStats")
+        }
     }
+
     Card(
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
@@ -44,11 +56,21 @@ fun PokemonBattleStatsSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Боевые характеристики",
+                    text = "Battle Stats",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
 
+                if (onToggleExtended != null) {
+                    IconButton(
+                        onClick = { onToggleExtended(!showExtended) }
+                    ) {
+                        Icon(
+                            imageVector = if (showExtended) Icons.Default.KeyboardArrowDown else Icons.Default.KeyboardArrowUp,
+                            contentDescription = if (showExtended) "Hide Extended Stats" else "Show Extended Stats"
+                        )
+                    }
+                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -62,6 +84,19 @@ fun PokemonBattleStatsSection(
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
+            }
+
+            if (showExtended) {
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Показываем общую статистику
+                val totalStats = stats.sumOf { it.baseStat }
+                Text(
+                    text = "Total Base Stats: $totalStats",
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
         }
     }

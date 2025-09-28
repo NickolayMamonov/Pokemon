@@ -22,7 +22,6 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,7 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.whysoezzy.core_data.state.LoadingState
 import dev.whysoezzy.core_uikit.components.bars.SearchAndFilterBar
 import dev.whysoezzy.core_uikit.components.cards.PokemonCard
 import dev.whysoezzy.core_uikit.components.errors.ErrorMessage
@@ -74,18 +72,16 @@ fun PokemonListScreen(
             when {
                 uiState.shouldShowLoadingOnly -> {
                     // Показываем только индикатор загрузки
-                    LoadingIndicator(
-                        modifier = Modifier.fillMaxSize()
-                    )
+                    LoadingIndicator()
                 }
 
                 uiState.hasError && !uiState.hasExistingData -> {
                     // Показываем ошибку без данных
                     ErrorMessage(
                         error = uiState.errorMessage ?: "Unknown error",
-                        onRetry = if (uiState.canRetry) {
-                            { viewModel.onIntent(PokemonListViewModel.Intent.Retry) }
-                        } else null
+                        onRetry = {
+                            viewModel.onIntent(PokemonListViewModel.Intent.Retry)
+                        }
                     )
                 }
 
@@ -101,7 +97,6 @@ fun PokemonListScreen(
                 }
 
                 uiState.shouldShowEmptyState -> {
-                    // Показываем пустое состояние
                     NoResultsMessage(
                         message = if (filter.searchQuery.isNotEmpty() || filter.selectedTypes.isNotEmpty()) {
                             "No Pokémon found matching your filters"
@@ -113,10 +108,7 @@ fun PokemonListScreen(
                 }
 
                 else -> {
-                    // Fallback для неожиданных состояний
-                    LoadingIndicator(
-                        modifier = Modifier.fillMaxSize()
-                    )
+                    LoadingIndicator()
                 }
             }
         }
@@ -199,9 +191,10 @@ private fun PokemonListContent(
         if (uiState.hasError && uiState.hasExistingData) {
             ErrorMessage(
                 error = uiState.errorMessage ?: "Unknown error",
-                onRetry = if (uiState.canRetry) {
-                    { viewModel.onIntent(PokemonListViewModel.Intent.Retry) }
-                } else null,
+                onRetry = {
+                    viewModel.onIntent(PokemonListViewModel.Intent.Retry)
+                },
+                isFullScreen = false,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
         }
@@ -223,9 +216,7 @@ private fun PokemonListContent(
                     NoResultsMessage(
                         message = "No Pokémon found matching your filters",
                         actionText = "Clear Filters"
-                    ) {
-                        viewModel.onIntent(PokemonListViewModel.Intent.ClearFilters)
-                    }
+                    )
                 }
             } else {
                 // Основной список покемонов

@@ -37,6 +37,7 @@ android {
 dependencies {
     implementation(project(":core:core-uikit"))
     implementation(project(":core:core-common"))
+    implementation(project(":core:core-data"))
     implementation(project(":domain"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -50,4 +51,6 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.koin.androidx.compose)
     implementation(libs.coil.compose)
+    implementation(libs.kotlinx.coroutines.android)
+
 }
