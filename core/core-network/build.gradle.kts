@@ -19,7 +19,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
+                "proguard-rules.pro"
             )
         }
     }
@@ -46,4 +46,5 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.koin.core)
     implementation(libs.timber)
+
 }

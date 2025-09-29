@@ -47,16 +47,15 @@ import timber.log.Timber
 @Composable
 fun PokemonListScreen(
     onPokemonSelected: (Pokemon) -> Unit,
-    viewModel: PokemonListViewModel = koinViewModel(),
+    viewModel: PokemonListViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val filter by viewModel.filter.collectAsStateWithLifecycle()
 
     var showFilterBottomSheet by remember { mutableStateOf(false) }
-    val bottomSheetState =
-        rememberModalBottomSheetState(
-            skipPartiallyExpanded = true,
-        )
+    val bottomSheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
 
     // Автоматически загружаем данные при первом появлении экрана
     LaunchedEffect(Unit) {
@@ -66,10 +65,9 @@ fun PokemonListScreen(
 
     Scaffold { paddingValues ->
         Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
         ) {
             when {
                 uiState.shouldShowLoadingOnly -> {
@@ -83,7 +81,7 @@ fun PokemonListScreen(
                         error = uiState.errorMessage ?: "Unknown error",
                         onRetry = {
                             viewModel.onIntent(PokemonListViewModel.Intent.Retry)
-                        },
+                        }
                     )
                 }
 
@@ -94,19 +92,18 @@ fun PokemonListScreen(
                         filter = filter,
                         viewModel = viewModel,
                         onPokemonSelected = onPokemonSelected,
-                        onShowFilters = { showFilterBottomSheet = true },
+                        onShowFilters = { showFilterBottomSheet = true }
                     )
                 }
 
                 uiState.shouldShowEmptyState -> {
                     NoResultsMessage(
-                        message =
-                            if (filter.searchQuery.isNotEmpty() || filter.selectedTypes.isNotEmpty()) {
-                                "No Pokémon found matching your filters"
-                            } else {
-                                "No Pokémon available"
-                            },
-                        onRetry = { viewModel.onIntent(PokemonListViewModel.Intent.Refresh) },
+                        message = if (filter.searchQuery.isNotEmpty() || filter.selectedTypes.isNotEmpty()) {
+                            "No Pokémon found matching your filters"
+                        } else {
+                            "No Pokémon available"
+                        },
+                        onRetry = { viewModel.onIntent(PokemonListViewModel.Intent.Refresh) }
                     )
                 }
 
@@ -129,7 +126,7 @@ fun PokemonListScreen(
                 onFilterChange = { newFilter ->
                     viewModel.onIntent(PokemonListViewModel.Intent.UpdateFilter(newFilter))
                 },
-                onDismiss = { showFilterBottomSheet = false },
+                onDismiss = { showFilterBottomSheet = false }
             )
         }
     }
@@ -142,7 +139,7 @@ private fun PokemonListContent(
     filter: PokemonFilter,
     viewModel: PokemonListViewModel,
     onPokemonSelected: (Pokemon) -> Unit,
-    onShowFilters: () -> Unit,
+    onShowFilters: () -> Unit
 ) {
     val gridState = rememberLazyGridState()
 
@@ -184,11 +181,10 @@ private fun PokemonListContent(
                 viewModel.onIntent(PokemonListViewModel.Intent.UpdateSearchQuery(query))
             },
             onFilterClick = onShowFilters,
-            hasActiveFilters =
-                filter.selectedTypes.isNotEmpty() ||
+            hasActiveFilters = filter.selectedTypes.isNotEmpty() ||
                     filter.sortBy != SortBy.ID ||
                     !filter.isAscending,
-            onClearFilters = { viewModel.onIntent(PokemonListViewModel.Intent.ClearFilters) },
+            onClearFilters = { viewModel.onIntent(PokemonListViewModel.Intent.ClearFilters) }
         )
 
         // Error banner если есть ошибка с существующими данными
@@ -199,7 +195,7 @@ private fun PokemonListContent(
                     viewModel.onIntent(PokemonListViewModel.Intent.Retry)
                 },
                 isFullScreen = false,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
         }
 
@@ -209,17 +205,17 @@ private fun PokemonListContent(
             onRefresh = {
                 viewModel.onIntent(PokemonListViewModel.Intent.Refresh)
             },
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
         ) {
             if (uiState.filteredPokemon.isEmpty() && uiState.hasData) {
                 // Показываем сообщение что фильтры ничего не нашли
                 Box(
                     modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
+                    contentAlignment = Alignment.Center
                 ) {
                     NoResultsMessage(
                         message = "No Pokémon found matching your filters",
-                        actionText = "Clear Filters",
+                        actionText = "Clear Filters"
                     )
                 }
             } else {
@@ -230,17 +226,17 @@ private fun PokemonListContent(
                     contentPadding = PaddingValues(8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     items(
                         items = uiState.filteredPokemon,
-                        key = { pokemon -> pokemon.id },
+                        key = { pokemon -> pokemon.id }
                     ) { pokemon ->
                         PokemonCard(
                             pokemon = pokemon,
                             onPokemonClick = { selectedPokemon ->
                                 onPokemonSelected(selectedPokemon)
-                            },
+                            }
                         )
                     }
 
@@ -248,14 +244,13 @@ private fun PokemonListContent(
                     if (uiState.isLoadingMore) {
                         item {
                             Box(
-                                modifier =
-                                    Modifier
-                                        .fillMaxWidth()
-                                        .padding(16.dp),
-                                contentAlignment = Alignment.Center,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                contentAlignment = Alignment.Center
                             ) {
                                 CircularProgressIndicator(
-                                    modifier = Modifier.size(24.dp),
+                                    modifier = Modifier.size(24.dp)
                                 )
                             }
                         }

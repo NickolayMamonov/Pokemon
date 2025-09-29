@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
  * @param Trigger - внутренние триггеры для изменения состояния
  */
 abstract class ViewModelLoader<State : Any, Intent : Any, Trigger : Any> : ViewModel() {
+
     private val _trigger by lazy { MutableSharedFlow<Trigger>() }
 
     /**
@@ -33,7 +34,7 @@ abstract class ViewModelLoader<State : Any, Intent : Any, Trigger : Any> : ViewM
         initialState: T,
         loadData: suspend FlowCollector<T>.(currentState: T) -> Unit,
         triggerData: (suspend FlowCollector<T>.(currentState: T, triggerParams: Trigger) -> Unit)? = null,
-        timeout: Long = 5000L, // Соответствует Android ANR timeout
+        timeout: Long = 5000L // Соответствует Android ANR timeout
     ): StateFlow<T> {
         var latestValue = initialState
 
@@ -56,7 +57,7 @@ abstract class ViewModelLoader<State : Any, Intent : Any, Trigger : Any> : ViewM
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(timeout),
-                initialValue = latestValue,
+                initialValue = latestValue
             )
     }
 
@@ -66,7 +67,7 @@ abstract class ViewModelLoader<State : Any, Intent : Any, Trigger : Any> : ViewM
     protected fun <T> loadData(
         initialState: T,
         loadData: suspend FlowCollector<T>.(currentState: T) -> Unit,
-        timeout: Long = 5000L,
+        timeout: Long = 5000L
     ): StateFlow<T> = loadData(initialState, loadData, null, timeout)
 
     /**

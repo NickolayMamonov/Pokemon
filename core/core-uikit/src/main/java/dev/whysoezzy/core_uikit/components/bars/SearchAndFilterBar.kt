@@ -33,16 +33,16 @@ fun SearchAndFilterBar(
     onSearchQueryChange: (String) -> Unit,
     onFilterClick: () -> Unit,
     hasActiveFilters: Boolean,
-    onClearFilters: () -> Unit,
+    onClearFilters: () -> Unit
 ) {
     Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.padding(16.dp)
     ) {
         // Основная строка поиска
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             // Поисковая строка
             OutlinedTextField(
@@ -51,16 +51,15 @@ fun SearchAndFilterBar(
                 label = {
                     Text(
                         "Поиск покемонов",
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 },
                 placeholder = {
                     Text(
                         "Введите имя, ID или тип...",
-                        style =
-                            MaterialTheme.typography.bodyMedium.copy(
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                            ),
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                        )
                     )
                 },
                 leadingIcon = {
@@ -68,71 +67,63 @@ fun SearchAndFilterBar(
                         imageVector = Icons.Default.Search,
                         contentDescription = "Поиск",
                         tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(24.dp)
                     )
                 },
                 trailingIcon = {
                     if (searchQuery.isNotEmpty()) {
                         IconButton(
                             onClick = { onSearchQueryChange("") },
-                            modifier = Modifier.size(40.dp),
+                            modifier = Modifier.size(40.dp)
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Clear,
                                 contentDescription = "Очистить поиск",
                                 tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                                modifier = Modifier.size(20.dp),
+                                modifier = Modifier.size(20.dp)
                             )
                         }
                     }
                 },
                 modifier = Modifier.weight(1f),
                 singleLine = true,
-                colors =
-                    OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = MaterialTheme.colorScheme.primary,
-                        unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
-                        focusedLabelColor = MaterialTheme.colorScheme.primary,
-                        cursorColor = MaterialTheme.colorScheme.primary,
-                    ),
-                shape = RoundedCornerShape(12.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
+                    focusedLabelColor = MaterialTheme.colorScheme.primary,
+                    cursorColor = MaterialTheme.colorScheme.primary
+                ),
+                shape = RoundedCornerShape(12.dp)
             )
             // Кнопка фильтров
             Card(
                 onClick = onFilterClick,
-                modifier =
-                    Modifier
-                        .size(56.dp)
-                        .padding(top = 4.dp),
-                elevation =
-                    CardDefaults.cardElevation(
-                        defaultElevation = if (hasActiveFilters) 8.dp else 4.dp,
-                    ),
-                colors =
-                    CardDefaults.cardColors(
-                        containerColor =
-                            if (hasActiveFilters) {
-                                MaterialTheme.colorScheme.primary
-                            } else {
-                                MaterialTheme.colorScheme.surfaceVariant
-                            },
-                        contentColor =
-                            if (hasActiveFilters) {
-                                MaterialTheme.colorScheme.onPrimary
-                            } else {
-                                MaterialTheme.colorScheme.onSurfaceVariant
-                            },
-                    ),
-                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier
+                    .size(56.dp)
+                    .padding(top = 4.dp),
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = if (hasActiveFilters) 8.dp else 4.dp
+                ),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (hasActiveFilters)
+                        MaterialTheme.colorScheme.primary
+                    else
+                        MaterialTheme.colorScheme.surfaceVariant,
+                    contentColor = if (hasActiveFilters)
+                        MaterialTheme.colorScheme.onPrimary
+                    else
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                ),
+                shape = RoundedCornerShape(16.dp)
             ) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
+                    contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Default.Menu,
                         contentDescription = "Фильтры",
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(24.dp)
                     )
                 }
             }

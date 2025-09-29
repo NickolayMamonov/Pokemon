@@ -1,5 +1,6 @@
 package dev.whysoezzy.core_network.dto
 
+
 data class PokemonDetailsDto(
     val id: Int,
     val name: String,
@@ -7,40 +8,40 @@ data class PokemonDetailsDto(
     val weight: Int,
     val sprites: SpritesDto,
     val types: List<TypeSlotDto>,
-    val stats: List<StatDto>,
+    val stats: List<StatDto>
 )
 
 data class SpritesDto(
     val frontDefault: String?,
-    val other: OtherDto?,
+    val other: OtherDto?
 )
 
 data class OtherDto(
-    val officialArtwork: OfficialArtworkDto?,
+    val officialArtwork: OfficialArtworkDto?
 )
 
 data class OfficialArtworkDto(
-    val frontDefault: String?,
+    val frontDefault: String?
 )
 
 data class TypeSlotDto(
     val slot: Int,
-    val type: TypeDto,
+    val type: TypeDto
 )
 
 data class TypeDto(
     val name: String,
-    val url: String,
+    val url: String
 )
 
 data class StatDto(
 //    @SerializedName("base_stat")
     val baseStat: Int,
     val effort: Int,
-    val stat: StatInfoDto,
+    val stat: StatInfoDto
 )
 
 data class StatInfoDto(
     val name: String,
-    val url: String,
+    val url: String
 )

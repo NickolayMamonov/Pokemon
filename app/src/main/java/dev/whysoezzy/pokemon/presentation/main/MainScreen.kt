@@ -11,7 +11,9 @@ import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 
 @Composable
-fun MainScreen(mainViewModel: MainViewModel = koinViewModel()) {
+fun MainScreen(
+    mainViewModel: MainViewModel = koinViewModel()
+) {
     val mainUiState by mainViewModel.uiState.collectAsStateWithLifecycle()
 
     BackHandler(enabled = mainUiState.canNavigateBack) {
@@ -28,7 +30,7 @@ fun MainScreen(mainViewModel: MainViewModel = koinViewModel()) {
                 onPokemonSelected = { pokemon ->
                     Timber.d("Pokemon selected: ${pokemon.name}, stats: ${pokemon.stats.map { "${it.name}: ${it.baseStat}" }}")
                     mainViewModel.navigateToPokemonDetails(pokemon)
-                },
+                }
             )
         }
 
@@ -37,7 +39,7 @@ fun MainScreen(mainViewModel: MainViewModel = koinViewModel()) {
                 pokemon = currentScreen.pokemon,
                 onBackClick = {
                     mainViewModel.navigateBack()
-                },
+                }
             )
         }
     }

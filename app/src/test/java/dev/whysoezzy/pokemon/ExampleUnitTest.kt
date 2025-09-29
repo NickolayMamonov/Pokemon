@@ -24,6 +24,7 @@ import org.junit.Test
  * Total: 54 unit tests + UI tests
  */
 class TestCoverageSummary {
+
     @Test
     fun `verify all test categories are covered`() {
         // Domain layer tests

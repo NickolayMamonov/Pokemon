@@ -23,13 +23,13 @@ import dev.whysoezzy.domain.model.SortBy
 @Composable
 fun SortByDropdown(
     currentSortBy: SortBy,
-    onSortByChange: (SortBy) -> Unit,
+    onSortByChange: (SortBy) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
+        onExpandedChange = { expanded = !expanded }
     ) {
         OutlinedTextField(
             value = getSortByDisplayName(currentSortBy),
@@ -39,16 +39,15 @@ fun SortByDropdown(
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             },
-            modifier =
-                Modifier
-                    .width(180.dp)
-                    .menuAnchor(MenuAnchorType.PrimaryNotEditable, true),
-            textStyle = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier
+                .width(180.dp)
+                .menuAnchor(MenuAnchorType.PrimaryNotEditable, true),
+            textStyle = MaterialTheme.typography.bodyMedium
         )
 
         ExposedDropdownMenu(
             expanded = expanded,
-            onDismissRequest = { expanded = false },
+            onDismissRequest = { expanded = false }
         ) {
             SortBy.entries.forEach { sortBy ->
                 DropdownMenuItem(
@@ -56,7 +55,7 @@ fun SortByDropdown(
                     onClick = {
                         onSortByChange(sortBy)
                         expanded = false
-                    },
+                    }
                 )
             }
         }

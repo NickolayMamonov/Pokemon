@@ -26,43 +26,32 @@ import timber.log.Timber
 class PokemonListViewModel(
     private val getPokemonListUseCase: GetPokemonListUseCase,
     private val getPokemonDetailsUseCase: GetPokemonDetailsUseCase,
-    private val filterPokemonUseCase: FilterPokemonUseCase,
+    private val filterPokemonUseCase: FilterPokemonUseCase
 ) : ViewModelLoader<
         PokemonListUiState,
         PokemonListViewModel.Intent,
-        PokemonListViewModel.Trigger,
-        >() {
+        PokemonListViewModel.Trigger>() {
+
     sealed class Intent {
         data object LoadInitialData : Intent()
-
         data object LoadMore : Intent()
-
         data object Refresh : Intent()
-
         data object Retry : Intent()
-
         data class UpdateSearchQuery(val query: String) : Intent()
-
         data class UpdateFilter(val filter: PokemonFilter) : Intent()
-
         data object ClearFilters : Intent()
     }
 
     sealed class Trigger {
         data object LoadInitialData : Trigger()
-
         data object LoadMore : Trigger()
-
         data object Refresh : Trigger()
-
         data class SearchQueryChanged(val query: String) : Trigger()
-
         data class FilterChanged(val filter: PokemonFilter) : Trigger()
-
         data class PokemonDetailsLoaded(
             val pokemonId: String,
             val pokemon: Pokemon,
-            val allTypes: Set<String>,
+            val allTypes: Set<String>
         ) : Trigger()
     }
 
@@ -75,82 +64,79 @@ class PokemonListViewModel(
         private const val SEARCH_DEBOUNCE = 300L
     }
 
-    override val state =
-        loadData(
-            initialState = PokemonListUiState(loadingState = LoadingState.Idle),
-            loadData = { currentState ->
-                // Загружаем только если нет данных или была ошибка
-                if (shouldLoadInitialData(currentState)) {
-                    Timber.d("Loading initial data - no existing data or error state")
+    override val state = loadData(
+        initialState = PokemonListUiState(loadingState = LoadingState.Idle),
+        loadData = { currentState ->
+            // Загружаем только если нет данных или была ошибка
+            if (shouldLoadInitialData(currentState)) {
+                Timber.d("Loading initial data - no existing data or error state")
+                emit(currentState.copy(loadingState = LoadingState.Loading))
+                loadPokemonPage(offset = 0, currentState = currentState)
+            } else {
+                Timber.d("Using cached data - ${currentState.pokemonList.size} items")
+                // Применяем фильтры к существующим данным
+                applyFilters(currentState)
+            }
+        },
+        triggerData = { currentState, trigger ->
+            when (trigger) {
+                Trigger.LoadInitialData -> {
+                    Timber.i("User initiated: Load initial data")
                     emit(currentState.copy(loadingState = LoadingState.Loading))
                     loadPokemonPage(offset = 0, currentState = currentState)
-                } else {
-                    Timber.d("Using cached data - ${currentState.pokemonList.size} items")
-                    // Применяем фильтры к существующим данным
-                    applyFilters(currentState)
                 }
-            },
-            triggerData = { currentState, trigger ->
-                when (trigger) {
-                    Trigger.LoadInitialData -> {
-                        Timber.i("User initiated: Load initial data")
-                        emit(currentState.copy(loadingState = LoadingState.Loading))
-                        loadPokemonPage(offset = 0, currentState = currentState)
-                    }
 
-                    Trigger.LoadMore -> {
-                        if (canLoadMore(currentState)) {
-                            Timber.i("User initiated: Load more (page ${currentState.currentPage + 1})")
-                            emit(
-                                currentState.copy(
-                                    loadingState = LoadingState.LoadingMore(currentState.filteredPokemon.size),
-                                ),
+                Trigger.LoadMore -> {
+                    if (canLoadMore(currentState)) {
+                        Timber.i("User initiated: Load more (page ${currentState.currentPage + 1})")
+                        emit(
+                            currentState.copy(
+                                loadingState = LoadingState.LoadingMore(currentState.filteredPokemon.size)
                             )
-                            loadPokemonPage(
-                                offset = currentState.pokemonList.size,
-                                currentState = currentState,
-                            )
-                        }
-                    }
-
-                    Trigger.Refresh -> {
-                        Timber.i("User initiated: Refresh")
-                        emit(currentState.copy(loadingState = LoadingState.Refreshing))
+                        )
                         loadPokemonPage(
-                            offset = 0,
-                            currentState =
-                                currentState.copy(
-                                    pokemonList = emptyList(),
-                                    detailedPokemon = emptyMap(),
-                                    availableTypes = emptySet(),
-                                ),
+                            offset = currentState.pokemonList.size,
+                            currentState = currentState
                         )
                     }
-
-                    is Trigger.SearchQueryChanged -> {
-                        _filter.value = _filter.value.copy(searchQuery = trigger.query)
-                        applyFilters(currentState)
-                    }
-
-                    is Trigger.FilterChanged -> {
-                        _filter.value = trigger.filter
-                        applyFilters(currentState)
-                    }
-
-                    is Trigger.PokemonDetailsLoaded -> {
-                        val newDetailedPokemon = currentState.detailedPokemon + (trigger.pokemonId to trigger.pokemon)
-                        val newState =
-                            currentState.copy(
-                                detailedPokemon = newDetailedPokemon,
-                                availableTypes = currentState.availableTypes + trigger.allTypes,
-                            )
-                        emit(newState)
-                        applyFilters(newState)
-                    }
                 }
-            },
-            timeout = CACHE_TIMEOUT,
-        )
+
+                Trigger.Refresh -> {
+                    Timber.i("User initiated: Refresh")
+                    emit(currentState.copy(loadingState = LoadingState.Refreshing))
+                    loadPokemonPage(
+                        offset = 0,
+                        currentState = currentState.copy(
+                            pokemonList = emptyList(),
+                            detailedPokemon = emptyMap(),
+                            availableTypes = emptySet()
+                        )
+                    )
+                }
+
+                is Trigger.SearchQueryChanged -> {
+                    _filter.value = _filter.value.copy(searchQuery = trigger.query)
+                    applyFilters(currentState)
+                }
+
+                is Trigger.FilterChanged -> {
+                    _filter.value = trigger.filter
+                    applyFilters(currentState)
+                }
+
+                is Trigger.PokemonDetailsLoaded -> {
+                    val newDetailedPokemon = currentState.detailedPokemon + (trigger.pokemonId to trigger.pokemon)
+                    val newState = currentState.copy(
+                        detailedPokemon = newDetailedPokemon,
+                        availableTypes = currentState.availableTypes + trigger.allTypes
+                    )
+                    emit(newState)
+                    applyFilters(newState)
+                }
+            }
+        },
+        timeout = CACHE_TIMEOUT
+    )
 
     init {
         setupSearchDebouncing()
@@ -207,9 +193,9 @@ class PokemonListViewModel(
      * Проверяет, можно ли загрузить больше данных
      */
     private fun canLoadMore(currentState: PokemonListUiState): Boolean {
-        return currentState.hasNextPage &&
-            currentState.loadingState !is LoadingState.LoadingMore &&
-            currentState.loadingState !is LoadingState.Loading
+        return currentState.hasNextPage && 
+               currentState.loadingState !is LoadingState.LoadingMore &&
+               currentState.loadingState !is LoadingState.Loading
     }
 
     /**
@@ -220,15 +206,13 @@ class PokemonListViewModel(
         val allPokemon = currentState.detailedPokemon.values.toList()
         val filteredPokemon = filterPokemonUseCase.invoke(allPokemon, currentFilter)
 
-        Timber.v(
-            "Applied filters: search='${currentFilter.searchQuery}', types=${currentFilter.selectedTypes.size}, result=${filteredPokemon.size}",
-        )
+        Timber.v("Applied filters: search='${currentFilter.searchQuery}', types=${currentFilter.selectedTypes.size}, result=${filteredPokemon.size}")
 
         emit(
             currentState.copy(
                 filteredPokemon = filteredPokemon,
-                loadingState = if (currentState.loadingState is LoadingState.Refreshing) LoadingState.Success else currentState.loadingState,
-            ),
+                loadingState = if (currentState.loadingState is LoadingState.Refreshing) LoadingState.Success else currentState.loadingState
+            )
         )
     }
 
@@ -237,7 +221,7 @@ class PokemonListViewModel(
      */
     private suspend fun FlowCollector<PokemonListUiState>.loadPokemonPage(
         offset: Int,
-        currentState: PokemonListUiState,
+        currentState: PokemonListUiState
     ) {
         try {
             val result = getPokemonListUseCase(limit = PAGE_SIZE, offset = offset)
@@ -245,25 +229,23 @@ class PokemonListViewModel(
             result.fold(
                 onSuccess = { paginatedData ->
                     Timber.i("Successfully loaded page: ${paginatedData.items.size} Pokemon from ${paginatedData.totalCount}")
+                    
+                    val newPokemonList = if (offset == 0) {
+                        paginatedData.items
+                    } else {
+                        currentState.pokemonList + paginatedData.items
+                    }
 
-                    val newPokemonList =
-                        if (offset == 0) {
-                            paginatedData.items
-                        } else {
-                            currentState.pokemonList + paginatedData.items
-                        }
-
-                    val newState =
-                        currentState.copy(
-                            pokemonList = newPokemonList,
-                            loadingState = LoadingState.Success,
-                            hasNextPage = paginatedData.hasNextPage,
-                            currentPage = paginatedData.currentPage,
-                            totalCount = paginatedData.totalCount,
-                        )
+                    val newState = currentState.copy(
+                        pokemonList = newPokemonList,
+                        loadingState = LoadingState.Success,
+                        hasNextPage = paginatedData.hasNextPage,
+                        currentPage = paginatedData.currentPage,
+                        totalCount = paginatedData.totalCount
+                    )
 
                     emit(newState)
-
+                    
                     // Запускаем загрузку деталей асинхронно
                     loadPokemonDetailsAsync(paginatedData.items)
                 },
@@ -271,27 +253,25 @@ class PokemonListViewModel(
                     Timber.e(error, "Error loading Pokemon list")
                     emit(
                         currentState.copy(
-                            loadingState =
-                                LoadingState.Error(
-                                    message = error.message ?: "Failed to load Pokemon",
-                                    isRetry = true,
-                                    hasExistingData = currentState.hasData,
-                                ),
-                        ),
+                            loadingState = LoadingState.Error(
+                                message = error.message ?: "Failed to load Pokemon",
+                                isRetry = true,
+                                hasExistingData = currentState.hasData
+                            )
+                        )
                     )
-                },
+                }
             )
         } catch (e: Exception) {
             Timber.e(e, "Unexpected error loading Pokemon")
             emit(
                 currentState.copy(
-                    loadingState =
-                        LoadingState.Error(
-                            message = "Unexpected error occurred",
-                            isRetry = true,
-                            hasExistingData = currentState.hasData,
-                        ),
-                ),
+                    loadingState = LoadingState.Error(
+                        message = "Unexpected error occurred",
+                        isRetry = true,
+                        hasExistingData = currentState.hasData
+                    )
+                )
             )
         }
     }
@@ -305,14 +285,13 @@ class PokemonListViewModel(
 
             val semaphore = Semaphore(5) // Ограничиваем количество одновременных запросов
 
-            val results =
-                pokemonList.map { pokemonItem ->
-                    async(Dispatchers.IO) {
-                        semaphore.withPermit {
-                            getPokemonDetailsUseCase(pokemonItem.id)
-                        }
+            val results = pokemonList.map { pokemonItem ->
+                async(Dispatchers.IO) {
+                    semaphore.withPermit {
+                        getPokemonDetailsUseCase(pokemonItem.id)
                     }
                 }
+            }
 
             var successCount = 0
             var errorCount = 0
@@ -331,14 +310,14 @@ class PokemonListViewModel(
                                 Trigger.PokemonDetailsLoaded(
                                     pokemonId = pokemonItem.id,
                                     pokemon = pokemon,
-                                    allTypes = types,
-                                ),
+                                    allTypes = types
+                                )
                             )
                         },
                         onFailure = { error ->
                             errorCount++
                             Timber.w(error, "Error loading details for Pokemon ${pokemonItem.id}")
-                        },
+                        }
                     )
                 } catch (e: Exception) {
                     errorCount++
@@ -368,7 +347,7 @@ class PokemonListViewModel(
                     },
                     onFailure = { error ->
                         Timber.w(error, "Error preloading next page")
-                    },
+                    }
                 )
             } catch (e: Exception) {
                 Timber.e(e, "Unexpected error during preloading")

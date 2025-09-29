@@ -15,10 +15,7 @@ interface PokemonDao {
     fun getAllPokemonList(): Flow<List<PokemonListItemEntity>>
 
     @Query("SELECT * FROM pokemon_list LIMIT :limit OFFSET :offset")
-    suspend fun getPokemonListPaginated(
-        limit: Int,
-        offset: Int,
-    ): List<PokemonListItemEntity>
+    suspend fun getPokemonListPaginated(limit: Int, offset: Int): List<PokemonListItemEntity>
 
     @Query("SELECT COUNT(*) FROM pokemon_list")
     suspend fun getPokemonListCount(): Int

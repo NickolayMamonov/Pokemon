@@ -18,18 +18,18 @@ data class PokemonEntity(
     val imageUrl: String,
     val types: List<PokemonTypeEntity>,
     val stats: List<PokemonStatEntity>,
-    val lastUpdated: Long = System.currentTimeMillis(),
+    val lastUpdated: Long = System.currentTimeMillis()
 )
 
 data class PokemonTypeEntity(
     val name: String,
-    val slot: Int,
+    val slot: Int
 )
 
 data class PokemonStatEntity(
     val name: String,
     val baseStat: Int,
-    val effort: Int,
+    val effort: Int
 )
 
 @Entity(tableName = "pokemon_list")
@@ -38,7 +38,7 @@ data class PokemonListItemEntity(
     val id: String,
     val name: String,
     val url: String,
-    val lastUpdated: Long = System.currentTimeMillis(),
+    val lastUpdated: Long = System.currentTimeMillis()
 )
 
 class PokemonConverters {

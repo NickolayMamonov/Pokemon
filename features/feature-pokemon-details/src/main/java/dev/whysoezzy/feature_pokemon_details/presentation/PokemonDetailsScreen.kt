@@ -43,7 +43,7 @@ import timber.log.Timber
 fun PokemonDetailsScreen(
     pokemon: Pokemon,
     onBackClick: () -> Unit,
-    viewModel: PokemonDetailsViewModel = koinViewModel(),
+    viewModel: PokemonDetailsViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
@@ -65,9 +65,7 @@ fun PokemonDetailsScreen(
 
     // Логируем какой покемон отображается
     LaunchedEffect(displayPokemon, uiState.loadingState) {
-        Timber.d(
-            "displayPokemon: ${displayPokemon.name}, from uiState: ${uiState.pokemon != null}, stats: ${displayPokemon.stats.map { "${it.name}: ${it.baseStat}" }}",
-        )
+        Timber.d("displayPokemon: ${displayPokemon.name}, from uiState: ${uiState.pokemon != null}, stats: ${displayPokemon.stats.map { "${it.name}: ${it.baseStat}" }}")
     }
 
     // Загружаем детали покемона при появлении экрана
@@ -85,24 +83,23 @@ fun PokemonDetailsScreen(
                     Text(
                         text = displayPokemon.name.toDisplayName(),
                         fontWeight = FontWeight.Bold,
-                        fontSize = 24.sp,
+                        fontSize = 24.sp
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = "Back"
                         )
                     }
                 },
-                colors =
-                    TopAppBarDefaults.topAppBarColors(
-                        containerColor = backgroundColor.copy(alpha = 0.3f),
-                        titleContentColor = MaterialTheme.colorScheme.onSurface,
-                    ),
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = backgroundColor.copy(alpha = 0.3f),
+                    titleContentColor = MaterialTheme.colorScheme.onSurface
+                )
             )
-        },
+        }
     ) { paddingValues ->
         when {
             // Показываем только loading если нет данных вообще и идет загрузка
@@ -116,13 +113,10 @@ fun PokemonDetailsScreen(
                 Timber.d("Showing error - ${uiState.errorMessage}")
                 ErrorMessage(
                     error = uiState.errorMessage ?: "Unknown error",
-                    onRetry =
-                        if (uiState.canRetry) {
-                            { viewModel.onIntent(PokemonDetailsViewModel.Intent.Retry) }
-                        } else {
-                            null
-                        },
-                    isFullScreen = true,
+                    onRetry = if (uiState.canRetry) {
+                        { viewModel.onIntent(PokemonDetailsViewModel.Intent.Retry) }
+                    } else null,
+                    isFullScreen = true
                 )
             }
 
@@ -134,21 +128,18 @@ fun PokemonDetailsScreen(
                     onRefresh = {
                         viewModel.onIntent(PokemonDetailsViewModel.Intent.Refresh)
                     },
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     Column(modifier = Modifier.fillMaxSize()) {
                         // Error banner если есть ошибка с существующими данными
                         if (uiState.hasError && uiState.hasData) {
                             ErrorMessage(
                                 error = uiState.errorMessage ?: "Unknown error",
-                                onRetry =
-                                    if (uiState.canRetry) {
-                                        { viewModel.onIntent(PokemonDetailsViewModel.Intent.Retry) }
-                                    } else {
-                                        null
-                                    },
+                                onRetry = if (uiState.canRetry) {
+                                    { viewModel.onIntent(PokemonDetailsViewModel.Intent.Retry) }
+                                } else null,
                                 isFullScreen = false,
-                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                             )
                         }
 
@@ -159,7 +150,7 @@ fun PokemonDetailsScreen(
                             backgroundColor = backgroundColor,
                             paddingValues = paddingValues,
                             scrollState = scrollState,
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier.fillMaxSize()
                         )
                     }
                 }
@@ -176,13 +167,12 @@ private fun PokemonDetailsContent(
     backgroundColor: androidx.compose.ui.graphics.Color,
     paddingValues: androidx.compose.foundation.layout.PaddingValues,
     scrollState: androidx.compose.foundation.ScrollState,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier =
-            modifier
-                .padding(paddingValues)
-                .verticalScroll(scrollState),
+        modifier = modifier
+            .padding(paddingValues)
+            .verticalScroll(scrollState)
     ) {
         // Верхняя секция с изображением и основной информацией
         PokemonHeaderSection(
@@ -191,7 +181,7 @@ private fun PokemonDetailsContent(
             isImageLoading = uiState.isImageLoading,
             onImageLoadingChanged = { isLoading ->
                 viewModel.onIntent(PokemonDetailsViewModel.Intent.ImageLoadingChanged(isLoading))
-            },
+            }
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -199,7 +189,7 @@ private fun PokemonDetailsContent(
         // Секция с типами
         PokemonTypesSection(
             types = pokemon.types,
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -208,7 +198,7 @@ private fun PokemonDetailsContent(
         PokemonPhysicalStatsSection(
             height = pokemon.height,
             weight = pokemon.weight,
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -220,7 +210,7 @@ private fun PokemonDetailsContent(
             onToggleExtended = { show ->
                 viewModel.onIntent(PokemonDetailsViewModel.Intent.ToggleExtendedStats(show))
             },
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
 
         Spacer(modifier = Modifier.height(24.dp))

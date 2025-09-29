@@ -23,8 +23,9 @@ sealed class LoadingState {
     data class Error(
         val message: String,
         val isRetry: Boolean = true,
-        val hasExistingData: Boolean = false,
+        val hasExistingData: Boolean = false
     ) : LoadingState()
+
 }
 
 val LoadingState.isLoading: Boolean
@@ -60,9 +61,11 @@ val LoadingState.errorMessage: String?
 /**
  * Можно ли показать контент (есть данные или загружается больше)
  */
-fun LoadingState.canShowContent(hasData: Boolean): Boolean = hasData || isLoadingMore || (hasError && error?.hasExistingData == true)
+fun LoadingState.canShowContent(hasData: Boolean): Boolean =
+    hasData || isLoadingMore || (hasError && error?.hasExistingData == true)
 
 /**
  * Нужно ли показать только индикатор загрузки
  */
-fun LoadingState.shouldShowLoadingOnly(hasData: Boolean): Boolean = isLoading && !hasData
+fun LoadingState.shouldShowLoadingOnly(hasData: Boolean): Boolean =
+    isLoading && !hasData

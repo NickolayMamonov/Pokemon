@@ -14,6 +14,7 @@ import dev.whysoezzy.core_database.entity.PokemonListItemEntity
 )
 @TypeConverters(PokemonConverters::class)
 abstract class PokemonDatabase : RoomDatabase() {
+
     abstract fun pokemonDao(): PokemonDao
 
     companion object {

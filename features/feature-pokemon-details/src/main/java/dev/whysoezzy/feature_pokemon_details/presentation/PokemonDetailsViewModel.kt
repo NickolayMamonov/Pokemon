@@ -12,21 +12,16 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class PokemonDetailsViewModel(
-    private val getPokemonDetailsUseCase: GetPokemonDetailsUseCase,
+    private val getPokemonDetailsUseCase: GetPokemonDetailsUseCase
 ) : ViewModel() {
+
     sealed class Intent {
         data class LoadPokemonDetails(val pokemon: Pokemon) : Intent()
-
         data class LoadPokemonById(val pokemonId: String) : Intent()
-
         data object Refresh : Intent()
-
         data object Retry : Intent()
-
         data class ToggleExtendedStats(val show: Boolean) : Intent()
-
         data class ImageLoadingChanged(val isLoading: Boolean) : Intent()
-
         data object ClearError : Intent()
     }
 
@@ -53,14 +48,12 @@ class PokemonDetailsViewModel(
                     loadPokemonById(pokemonId)
                 } else {
                     Timber.w("Cannot refresh - no Pokemon ID available")
-                    _state.value =
-                        _state.value.copy(
-                            loadingState =
-                                LoadingState.Error(
-                                    message = "Cannot refresh - no Pokemon loaded",
-                                    isRetry = false,
-                                ),
+                    _state.value = _state.value.copy(
+                        loadingState = LoadingState.Error(
+                            message = "Cannot refresh - no Pokemon loaded",
+                            isRetry = false
                         )
+                    )
                 }
             }
 
@@ -105,11 +98,10 @@ class PokemonDetailsViewModel(
             loadPokemonById(pokemon.id.toString())
         } else {
             Timber.d("Pokemon ${pokemon.name} has valid data, using provided object")
-            _state.value =
-                _state.value.copy(
-                    pokemon = pokemon,
-                    loadingState = LoadingState.Success,
-                )
+            _state.value = _state.value.copy(
+                pokemon = pokemon,
+                loadingState = LoadingState.Success
+            )
         }
     }
 
@@ -119,44 +111,39 @@ class PokemonDetailsViewModel(
     private fun loadPokemonById(pokemonId: String) {
         viewModelScope.launch {
             _state.value = _state.value.copy(loadingState = LoadingState.Loading)
-
+            
             try {
                 getPokemonDetailsUseCase(pokemonId).fold(
                     onSuccess = { pokemon ->
                         Timber.i("Successfully loaded Pokemon details: ${pokemon.name}")
                         Timber.d("New Pokemon stats: ${pokemon.stats.map { "${it.name}: ${it.baseStat}" }}")
                         Timber.d("Total stats: ${pokemon.stats.sumOf { it.baseStat }}")
-                        _state.value =
-                            _state.value.copy(
-                                pokemon = pokemon,
-                                loadingState = LoadingState.Success,
-                            )
+                        _state.value = _state.value.copy(
+                            pokemon = pokemon,
+                            loadingState = LoadingState.Success
+                        )
                         Timber.d("State updated with new Pokemon")
                     },
                     onFailure = { error ->
                         Timber.e(error, "Error loading Pokemon with ID: $pokemonId")
-                        _state.value =
-                            _state.value.copy(
-                                loadingState =
-                                    LoadingState.Error(
-                                        message = error.message ?: "Failed to load Pokemon",
-                                        isRetry = true,
-                                        hasExistingData = _state.value.pokemon != null,
-                                    ),
+                        _state.value = _state.value.copy(
+                            loadingState = LoadingState.Error(
+                                message = error.message ?: "Failed to load Pokemon",
+                                isRetry = true,
+                                hasExistingData = _state.value.pokemon != null
                             )
-                    },
+                        )
+                    }
                 )
             } catch (e: Exception) {
                 Timber.e(e, "Unexpected error loading Pokemon $pokemonId")
-                _state.value =
-                    _state.value.copy(
-                        loadingState =
-                            LoadingState.Error(
-                                message = "Unexpected error occurred",
-                                isRetry = true,
-                                hasExistingData = _state.value.pokemon != null,
-                            ),
+                _state.value = _state.value.copy(
+                    loadingState = LoadingState.Error(
+                        message = "Unexpected error occurred",
+                        isRetry = true,
+                        hasExistingData = _state.value.pokemon != null
                     )
+                )
             }
         }
     }
