@@ -21,7 +21,7 @@ dependencies {
     // Testing dependencies (только JVM совместимые)
     testImplementation(libs.junit)
     testImplementation(kotlin("test"))
-    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("io.mockk:mockk:1.14.5")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
 }
