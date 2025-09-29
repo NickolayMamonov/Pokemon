@@ -3,7 +3,6 @@ package dev.whysoezzy.domain.usecase
 import dev.whysoezzy.domain.model.PaginatedData
 import dev.whysoezzy.domain.model.PokemonListItem
 import dev.whysoezzy.domain.repository.PokemonRepository
-import dev.whysoezzy.domain.usecase.GetPokemonListUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
