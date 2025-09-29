@@ -26,23 +26,23 @@ import java.util.concurrent.ConcurrentHashMap
 
 class PokemonRepositoryImpl(
     private val api: PokemonApi,
-    private val pokemonDao: PokemonDao
+    private val pokemonDao: PokemonDao,
 ) : PokemonRepository {
-
     companion object {
         private const val CACHE_DURATION_MS = 24 * 60 * 60 * 1000L // 24 часа
         private const val BACKGROUND_REFRESH_THRESHOLD = 12 * 60 * 60 * 1000L // 12 часов
     }
 
-    private val repositoryScope = CoroutineScope(
-        Dispatchers.IO + SupervisorJob() + CoroutineName("PokemonRepository")
-    )
+    private val repositoryScope =
+        CoroutineScope(
+            Dispatchers.IO + SupervisorJob() + CoroutineName("PokemonRepository"),
+        )
 
     private val activeRequests = ConcurrentHashMap<String, Deferred<Result<Pokemon>>>()
 
     override suspend fun getPokemonList(
         limit: Int,
-        offset: Int
+        offset: Int,
     ): Result<PaginatedData<PokemonListItem>> {
         return try {
             Timber.e("Загружаем список покемонов: limit=$limit, offset=$offset")
@@ -55,12 +55,13 @@ class PokemonRepositoryImpl(
                 val hasNextPage = (offset + limit) < cachedCount
                 val currentPage = (offset + limit) + 1
 
-                val paginatedData = PaginatedData(
-                    items = domainList,
-                    hasNextPage = hasNextPage,
-                    currentPage = currentPage,
-                    totalCount = cachedCount
-                )
+                val paginatedData =
+                    PaginatedData(
+                        items = domainList,
+                        hasNextPage = hasNextPage,
+                        currentPage = currentPage,
+                        totalCount = cachedCount,
+                    )
                 return Result.success(paginatedData)
             }
 
@@ -94,12 +95,13 @@ class PokemonRepositoryImpl(
                 val hasNextPage = (offset + limit) < cachedCount
                 val currentPage = (offset + limit) + 1
 
-                val paginatedData = PaginatedData(
-                    items = domainList,
-                    hasNextPage = hasNextPage,
-                    currentPage = currentPage,
-                    totalCount = cachedCount
-                )
+                val paginatedData =
+                    PaginatedData(
+                        items = domainList,
+                        hasNextPage = hasNextPage,
+                        currentPage = currentPage,
+                        totalCount = cachedCount,
+                    )
                 Result.success(paginatedData)
             } else {
                 Result.failure(Exception("Нет подключения к интернету. Проверьте соединение."))
@@ -124,13 +126,14 @@ class PokemonRepositoryImpl(
                         return@withTimeout existingRequest.await()
                     }
 
-                    val deferred = async {
-                        try {
-                            fetchPokemonWithCaching(id)
-                        } finally {
-                            activeRequests.remove(id)
+                    val deferred =
+                        async {
+                            try {
+                                fetchPokemonWithCaching(id)
+                            } finally {
+                                activeRequests.remove(id)
+                            }
                         }
-                    }
 
                     activeRequests[id] = deferred
                     deferred.await()
@@ -163,21 +166,36 @@ class PokemonRepositoryImpl(
 
         val cachedPokemon = pokemonDao.getPokemonById(pokemonId)
         if (cachedPokemon != null && isCacheValid(cachedPokemon.lastUpdated)) {
-            val domainModel = cachedPokemon.toDomainModel()
+            Timber.d("Found cached Pokemon $id: ${cachedPokemon.name}")
+            Timber.d("Cached Pokemon stats: ${cachedPokemon.stats.map { "${it.name}: ${it.baseStat}" }}")
 
-            val cacheAge = System.currentTimeMillis() - cachedPokemon.lastUpdated
-            if (cacheAge > BACKGROUND_REFRESH_THRESHOLD) {
-                repositoryScope.launch {
-                    refreshPokemonInBackground(id)
+            // Проверяем что у кэшированного покемона есть валидные статистики
+            val hasValidStats = cachedPokemon.stats.any { it.baseStat > 0 }
+            if (!hasValidStats) {
+                Timber.w("Cached Pokemon $id has invalid stats, forcing API reload")
+                // Пропускаем кэш и загружаем из API
+            } else {
+                val domainModel = cachedPokemon.toDomainModel()
+                Timber.d("Cached domain model stats: ${domainModel.stats.map { "${it.name}: ${it.baseStat}" }}")
+
+                val cacheAge = System.currentTimeMillis() - cachedPokemon.lastUpdated
+                if (cacheAge > BACKGROUND_REFRESH_THRESHOLD) {
+                    repositoryScope.launch {
+                        refreshPokemonInBackground(id)
+                    }
                 }
-            }
 
-            return Result.success(domainModel)
+                return Result.success(domainModel)
+            }
         }
 
         return retryWithBackoff(maxAttempts = 3) {
+            Timber.d("Making API call for Pokemon $id")
             val response = api.getPokemonDetails(id)
+            Timber.d("API response for $id: name=${response.name}, stats.size=${response.stats.size}")
+            Timber.d("API stats raw: ${response.stats.map { "${it.stat.name}: ${it.baseStat}" }}")
             val domainModel = response.toDomainModel()
+            Timber.d("Domain model stats: ${domainModel.stats.map { "${it.name}: ${it.baseStat}" }}")
 
             repositoryScope.launch {
                 pokemonDao.insertPokemon(domainModel.toEntity())
@@ -185,7 +203,6 @@ class PokemonRepositoryImpl(
 
             Result.success(domainModel)
         }
-
     }
 
     private suspend fun refreshPokemonInBackground(id: String) {
@@ -202,7 +219,7 @@ class PokemonRepositoryImpl(
     private suspend fun <T> retryWithBackoff(
         maxAttempts: Int = 3,
         initialDelay: Long = 1000,
-        block: suspend () -> T
+        block: suspend () -> T,
     ): T {
         var lastException: Exception? = null
         var delay = initialDelay
@@ -225,6 +242,4 @@ class PokemonRepositoryImpl(
 
         throw lastException ?: Exception("Все попытки исчерпаны")
     }
-
-
 }

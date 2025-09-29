@@ -37,29 +37,31 @@ fun PokemonCard(
     onPokemonClick: ((Pokemon) -> Unit)? = null,
 ) {
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable {
-                onPokemonClick?.invoke(pokemon)
-            }
-            .padding(8.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clickable {
+                    onPokemonClick?.invoke(pokemon)
+                }
+                .padding(8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(16.dp),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             AsyncImage(
                 model = pokemon.imageUrl,
                 contentDescription = "Изображение ${pokemon.name}",
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp),
-                contentScale = ContentScale.Fit
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(8.dp),
+                contentScale = ContentScale.Fit,
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -70,40 +72,40 @@ fun PokemonCard(
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
-
 
             // Типы покемона
             Row(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 pokemon.types.take(2).forEach { type ->
                     Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = type.name.toTypeColor().copy(alpha = 0.3f)
+                        colors =
+                            CardDefaults.cardColors(
+                                containerColor = type.name.toTypeColor().copy(alpha = 0.3f),
 //                                getTypeColor(
 //                                type.name
 //                            ).copy(alpha = 0.3f)
-                        ),
+                            ),
                         shape = RoundedCornerShape(8.dp),
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
                     ) {
                         Text(
                             text = type.name.uppercase(),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 4.dp),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 4.dp),
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.labelSmall,
                             fontWeight = FontWeight.Bold,
-                            color = type.name.toTypeColor()
+                            color = type.name.toTypeColor(),
 //                                getTypeColor(
 //                                type.name
 //                            )
-                            ,
-                            fontSize = 10.sp
+                            fontSize = 10.sp,
                         )
                     }
                 }
@@ -118,7 +120,7 @@ fun PokemonCard(
                 Spacer(modifier = Modifier.height(12.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                    horizontalArrangement = Arrangement.SpaceEvenly,
                 ) {
                     StatItem(label = "Рост", value = "${p.height * 10} см")
                     StatItem(label = "Вес", value = "${p.weight / 10f} кг")

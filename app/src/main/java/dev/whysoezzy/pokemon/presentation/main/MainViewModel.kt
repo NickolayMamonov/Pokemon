@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class MainViewModel : ViewModel() {
-
     private val _uiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
@@ -53,10 +52,11 @@ class MainViewModel : ViewModel() {
 
             val previousScreen = backStack.lastOrNull() ?: Screen.PokemonList
 
-            val selectedPokemon = when (previousScreen) {
-                is Screen.PokemonDetails -> previousScreen.pokemon
-                is Screen.PokemonList -> null
-            }
+            val selectedPokemon =
+                when (previousScreen) {
+                    is Screen.PokemonDetails -> previousScreen.pokemon
+                    is Screen.PokemonList -> null
+                }
 
             updateCurrentScreen(previousScreen, selectedPokemon)
 
@@ -80,14 +80,18 @@ class MainViewModel : ViewModel() {
         _uiState.value = _uiState.value.copy(isNavigating = false)
     }
 
-    private fun updateCurrentScreen(screen: Screen, selectedPokemon: Pokemon?) {
+    private fun updateCurrentScreen(
+        screen: Screen,
+        selectedPokemon: Pokemon?,
+    ) {
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(
-                currentScreen = screen,
-                selectedPokemon = selectedPokemon,
-                isNavigating = true,
-                canNavigateBack = canNavigateBack()
-            )
+            _uiState.value =
+                _uiState.value.copy(
+                    currentScreen = screen,
+                    selectedPokemon = selectedPokemon,
+                    isNavigating = true,
+                    canNavigateBack = canNavigateBack(),
+                )
         }
     }
 

@@ -8,7 +8,7 @@ import dev.whysoezzy.domain.model.PokemonListItem
 
 fun PokemonListResponseDto.toDomainModel(
     currentOffset: Int,
-    limit: Int
+    limit: Int,
 ): PaginatedData<PokemonListItem> {
     val items = results.map { it.toDomainModel() }
     val hasNextPage = next != null
@@ -18,7 +18,7 @@ fun PokemonListResponseDto.toDomainModel(
         items = items,
         hasNextPage = hasNextPage,
         currentPage = currentPage,
-        totalCount = count
+        totalCount = count,
     )
 }
 
@@ -26,7 +26,7 @@ fun PokemonResultDto.toDomainModel(): PokemonListItem {
     return PokemonListItem(
         id = url.trimEnd('/').substringAfterLast('/'),
         name = name,
-        url = url
+        url = url,
     )
 }
 
@@ -34,7 +34,7 @@ fun PokemonListItemEntity.toDomainModel(): PokemonListItem {
     return PokemonListItem(
         id = id,
         name = name,
-        url = url
+        url = url,
     )
 }
 
@@ -42,6 +42,6 @@ fun PokemonListItem.toEntity(): PokemonListItemEntity {
     return PokemonListItemEntity(
         id = id,
         name = name,
-        url = url
+        url = url,
     )
 }
