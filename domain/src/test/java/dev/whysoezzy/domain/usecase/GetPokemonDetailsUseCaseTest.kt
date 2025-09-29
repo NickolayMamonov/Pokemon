@@ -4,7 +4,6 @@ import dev.whysoezzy.domain.model.Pokemon
 import dev.whysoezzy.domain.model.PokemonStat
 import dev.whysoezzy.domain.model.PokemonType
 import dev.whysoezzy.domain.repository.PokemonRepository
-import dev.whysoezzy.domain.usecase.GetPokemonDetailsUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

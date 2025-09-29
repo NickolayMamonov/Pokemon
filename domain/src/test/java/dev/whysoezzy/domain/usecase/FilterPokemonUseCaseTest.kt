@@ -5,7 +5,6 @@ import dev.whysoezzy.domain.model.PokemonFilter
 import dev.whysoezzy.domain.model.PokemonStat
 import dev.whysoezzy.domain.model.PokemonType
 import dev.whysoezzy.domain.model.SortBy
-import dev.whysoezzy.domain.usecase.FilterPokemonUseCase
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
