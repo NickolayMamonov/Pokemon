@@ -6,7 +6,7 @@ updates:
       interval: "weekly"
       day: "monday"
       time: "09:00"
-    target-branch: "develop"
+    target-branch: "dev"
     reviewers:
       - "whysoezzy"
     assignees:

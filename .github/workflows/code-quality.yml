@@ -2,9 +2,9 @@ name: Code Quality
 
 on:
   push:
-    branches: [ main, develop, add-flow-based-arch ]
+    branches: [ master, dev, add-flow-based-arch ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ master, dev ]
 
 jobs:
   lint:

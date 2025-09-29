@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main, develop, add-flow-based-arch ]
+    branches: [ master, dev, add-flow-based-arch ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ master, dev ]
 
 env:
   GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxMetaspaceSize=1g -XX:+HeapDumpOnOutOfMemoryError"
