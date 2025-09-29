@@ -21,7 +21,7 @@ data class PokemonDetailsUiState(
     val pokemon: Pokemon? = null,
     val isImageLoading: Boolean = false,
     val isFavorite: Boolean = false,
-    val showExtendedStats: Boolean = false
+    val showExtendedStats: Boolean = false,
 ) {
     // Удобные computed properties для UI
     val isLoading get() = loadingState.isLoading

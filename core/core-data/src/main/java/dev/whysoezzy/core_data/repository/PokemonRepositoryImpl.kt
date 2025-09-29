@@ -26,23 +26,23 @@ import java.util.concurrent.ConcurrentHashMap
 
 class PokemonRepositoryImpl(
     private val api: PokemonApi,
-    private val pokemonDao: PokemonDao
+    private val pokemonDao: PokemonDao,
 ) : PokemonRepository {
-
     companion object {
         private const val CACHE_DURATION_MS = 24 * 60 * 60 * 1000L // 24 часа
         private const val BACKGROUND_REFRESH_THRESHOLD = 12 * 60 * 60 * 1000L // 12 часов
     }
 
-    private val repositoryScope = CoroutineScope(
-        Dispatchers.IO + SupervisorJob() + CoroutineName("PokemonRepository")
-    )
+    private val repositoryScope =
+        CoroutineScope(
+            Dispatchers.IO + SupervisorJob() + CoroutineName("PokemonRepository"),
+        )
 
     private val activeRequests = ConcurrentHashMap<String, Deferred<Result<Pokemon>>>()
 
     override suspend fun getPokemonList(
         limit: Int,
-        offset: Int
+        offset: Int,
     ): Result<PaginatedData<PokemonListItem>> {
         return try {
             Timber.e("Загружаем список покемонов: limit=$limit, offset=$offset")
@@ -55,12 +55,13 @@ class PokemonRepositoryImpl(
                 val hasNextPage = (offset + limit) < cachedCount
                 val currentPage = (offset + limit) + 1
 
-                val paginatedData = PaginatedData(
-                    items = domainList,
-                    hasNextPage = hasNextPage,
-                    currentPage = currentPage,
-                    totalCount = cachedCount
-                )
+                val paginatedData =
+                    PaginatedData(
+                        items = domainList,
+                        hasNextPage = hasNextPage,
+                        currentPage = currentPage,
+                        totalCount = cachedCount,
+                    )
                 return Result.success(paginatedData)
             }
 
@@ -94,12 +95,13 @@ class PokemonRepositoryImpl(
                 val hasNextPage = (offset + limit) < cachedCount
                 val currentPage = (offset + limit) + 1
 
-                val paginatedData = PaginatedData(
-                    items = domainList,
-                    hasNextPage = hasNextPage,
-                    currentPage = currentPage,
-                    totalCount = cachedCount
-                )
+                val paginatedData =
+                    PaginatedData(
+                        items = domainList,
+                        hasNextPage = hasNextPage,
+                        currentPage = currentPage,
+                        totalCount = cachedCount,
+                    )
                 Result.success(paginatedData)
             } else {
                 Result.failure(Exception("Нет подключения к интернету. Проверьте соединение."))
@@ -124,13 +126,14 @@ class PokemonRepositoryImpl(
                         return@withTimeout existingRequest.await()
                     }
 
-                    val deferred = async {
-                        try {
-                            fetchPokemonWithCaching(id)
-                        } finally {
-                            activeRequests.remove(id)
+                    val deferred =
+                        async {
+                            try {
+                                fetchPokemonWithCaching(id)
+                            } finally {
+                                activeRequests.remove(id)
+                            }
                         }
-                    }
 
                     activeRequests[id] = deferred
                     deferred.await()
@@ -200,7 +203,6 @@ class PokemonRepositoryImpl(
 
             Result.success(domainModel)
         }
-
     }
 
     private suspend fun refreshPokemonInBackground(id: String) {
@@ -217,7 +219,7 @@ class PokemonRepositoryImpl(
     private suspend fun <T> retryWithBackoff(
         maxAttempts: Int = 3,
         initialDelay: Long = 1000,
-        block: suspend () -> T
+        block: suspend () -> T,
     ): T {
         var lastException: Exception? = null
         var delay = initialDelay
@@ -240,6 +242,4 @@ class PokemonRepositoryImpl(
 
         throw lastException ?: Exception("Все попытки исчерпаны")
     }
-
-
 }

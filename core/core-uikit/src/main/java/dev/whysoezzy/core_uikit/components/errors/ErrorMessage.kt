@@ -31,21 +31,22 @@ fun ErrorMessage(
     onRetry: (() -> Unit)? = null,
     onDismiss: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
-    isFullScreen: Boolean = true
+    isFullScreen: Boolean = true,
 ) {
     if (isFullScreen) {
         // Полноэкранное сообщение об ошибке
         Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(32.dp),
+            modifier =
+                modifier
+                    .fillMaxSize()
+                    .padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 text = "⚠️",
                 style = MaterialTheme.typography.displayMedium,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -54,7 +55,7 @@ fun ErrorMessage(
                 text = "Something went wrong",
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -63,18 +64,18 @@ fun ErrorMessage(
                 text = error,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
 
             Spacer(modifier = Modifier.height(24.dp))
 
             Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 if (onDismiss != null) {
                     OutlinedButton(
                         onClick = onDismiss,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
                     ) {
                         Text("Dismiss")
                     }
@@ -83,7 +84,7 @@ fun ErrorMessage(
                 if (onRetry != null) {
                     Button(
                         onClick = onRetry,
-                        modifier = Modifier.weight(if (onDismiss != null) 1f else 2f)
+                        modifier = Modifier.weight(if (onDismiss != null) 1f else 2f),
                     ) {
                         Text("Retry")
                     }
@@ -94,42 +95,45 @@ fun ErrorMessage(
         // Компактный баннер ошибки
         Card(
             modifier = modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.errorContainer
-            ),
-            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            colors =
+                CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                ),
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Column(
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
                 ) {
                     Text(
                         text = "Error",
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onErrorContainer
+                        color = MaterialTheme.colorScheme.onErrorContainer,
                     )
 
                     Text(
                         text = error,
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onErrorContainer.copy(alpha = 0.8f)
+                        color = MaterialTheme.colorScheme.onErrorContainer.copy(alpha = 0.8f),
                     )
                 }
 
                 if (onRetry != null) {
                     Button(
                         onClick = onRetry,
-                        colors = androidx.compose.material3.ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.error,
-                            contentColor = MaterialTheme.colorScheme.onError
-                        )
+                        colors =
+                            androidx.compose.material3.ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.error,
+                                contentColor = MaterialTheme.colorScheme.onError,
+                            ),
                     ) {
                         Text("Retry")
                     }
