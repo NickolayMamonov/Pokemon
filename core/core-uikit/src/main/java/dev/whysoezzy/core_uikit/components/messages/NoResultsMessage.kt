@@ -22,21 +22,22 @@ fun NoResultsMessage(
     message: String,
     actionText: String? = null,
     onRetry: (() -> Unit)? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(32.dp),
-        contentAlignment = Alignment.Center
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(32.dp),
+        contentAlignment = Alignment.Center,
     ) {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = "🔍",
                 fontSize = 48.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -45,7 +46,7 @@ fun NoResultsMessage(
                 text = "No Results Found",
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -54,14 +55,14 @@ fun NoResultsMessage(
                 text = message,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
 
             if (onRetry != null) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = onRetry
+                    onClick = onRetry,
                 ) {
                     Text(actionText ?: "Retry")
                 }
@@ -74,17 +75,18 @@ fun NoResultsMessage(
 @Composable
 fun NoResultsMessage(
     hasActiveFilters: Boolean = false,
-    onClearFilters: () -> Unit = {}
+    onClearFilters: () -> Unit = {},
 ) {
-    val message = if (hasActiveFilters) {
-        "Покемоны с выбранными фильтрами не найдены.\nПопробуйте изменить параметры поиска."
-    } else {
-        "Покемоны не загружены.\nПроверьте подключение к интернету."
-    }
+    val message =
+        if (hasActiveFilters) {
+            "Покемоны с выбранными фильтрами не найдены.\nПопробуйте изменить параметры поиска."
+        } else {
+            "Покемоны не загружены.\nПроверьте подключение к интернету."
+        }
 
     NoResultsMessage(
         message = message,
         actionText = if (hasActiveFilters) "Очистить фильтры" else null,
-        onRetry = if (hasActiveFilters) onClearFilters else null
+        onRetry = if (hasActiveFilters) onClearFilters else null,
     )
 }

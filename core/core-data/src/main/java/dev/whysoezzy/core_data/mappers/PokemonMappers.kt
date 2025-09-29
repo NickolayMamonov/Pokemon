@@ -15,7 +15,7 @@ fun PokemonEntity.toDomainModel(): Pokemon {
         weight = weight,
         imageUrl = imageUrl,
         types = types.map { PokemonType(it.name, it.slot) },
-        stats = stats.map { PokemonStat(it.name, it.baseStat, it.effort) }
+        stats = stats.map { PokemonStat(it.name, it.baseStat, it.effort) },
     )
 }
 
@@ -27,6 +27,6 @@ fun Pokemon.toEntity(): PokemonEntity {
         weight = weight,
         imageUrl = imageUrl,
         types = types.map { PokemonTypeEntity(it.name, it.slot) },
-        stats = stats.map { PokemonStatEntity(it.name, it.baseStat, it.effort) }
+        stats = stats.map { PokemonStatEntity(it.name, it.baseStat, it.effort) },
     )
 }

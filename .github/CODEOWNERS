@@ -1,0 +1,26 @@
+# Global owners
+* @whysoezzy
+
+# Core modules
+/core/ @whysoezzy
+
+# Feature modules  
+/features/ @whysoezzy
+
+# Domain layer
+/domain/ @whysoezzy
+
+# Main app module
+/app/ @whysoezzy
+
+# Build configuration
+*.gradle.kts @whysoezzy
+gradle.properties @whysoezzy
+settings.gradle.kts @whysoezzy
+
+# CI/CD configuration
+/.github/ @whysoezzy
+
+# Documentation
+README.md @whysoezzy
+*.md @whysoezzy

@@ -15,7 +15,7 @@ import dev.whysoezzy.core_data.state.shouldShowLoadingOnly
 import dev.whysoezzy.domain.model.Pokemon
 import dev.whysoezzy.domain.model.PokemonListItem
 
-//data class PokemonListUiState(
+// data class PokemonListUiState(
 //    val pokemonList: List<PokemonListItem> = emptyList(),
 //    val detailedPokemon: Map<String, Pokemon> = emptyMap(),
 //    val filteredPokemon: List<Pokemon> = emptyList(),
@@ -28,7 +28,7 @@ import dev.whysoezzy.domain.model.PokemonListItem
 //    val currentPage: Int = 0,
 //    val totalCount: Int = 0,
 //    val cachedCount: Int = 0
-//)
+// )
 
 /**
  * UI состояние для экрана списка покемонов
@@ -43,7 +43,7 @@ data class PokemonListUiState(
     val availableTypes: Set<String> = emptySet(),
     val hasNextPage: Boolean = false,
     val currentPage: Int = 0,
-    val totalCount: Int = 0
+    val totalCount: Int = 0,
 ) {
     // Удобные computed properties для UI
     val isLoading get() = loadingState.isLoading

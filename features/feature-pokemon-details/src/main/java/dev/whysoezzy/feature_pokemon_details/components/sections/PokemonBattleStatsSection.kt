@@ -32,7 +32,7 @@ fun PokemonBattleStatsSection(
     modifier: Modifier = Modifier,
     stats: List<PokemonStat>,
     showExtended: Boolean,
-    onToggleExtended: ((Boolean) -> Unit)? = null
+    onToggleExtended: ((Boolean) -> Unit)? = null,
 ) {
     LaunchedEffect(stats) {
         Timber.d("Stats in battle section: ${stats.map { "${it.name}: ${it.baseStat}" }}")
@@ -45,29 +45,29 @@ fun PokemonBattleStatsSection(
 
     Card(
         modifier = modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = "Battle Stats",
                     style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
                 )
 
                 if (onToggleExtended != null) {
                     IconButton(
-                        onClick = { onToggleExtended(!showExtended) }
+                        onClick = { onToggleExtended(!showExtended) },
                     ) {
                         Icon(
                             imageVector = if (showExtended) Icons.Default.KeyboardArrowDown else Icons.Default.KeyboardArrowUp,
-                            contentDescription = if (showExtended) "Hide Extended Stats" else "Show Extended Stats"
+                            contentDescription = if (showExtended) "Hide Extended Stats" else "Show Extended Stats",
                         )
                     }
                 }
@@ -80,7 +80,7 @@ fun PokemonBattleStatsSection(
                     statName = stat.name.toStatDisplayName(),
                     statValue = stat.baseStat,
                     maxValue = 255,
-                    effort = if (showExtended) stat.effort else null
+                    effort = if (showExtended) stat.effort else null,
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -95,7 +95,7 @@ fun PokemonBattleStatsSection(
                     text = "Total Base Stats: $totalStats",
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
                 )
             }
         }
