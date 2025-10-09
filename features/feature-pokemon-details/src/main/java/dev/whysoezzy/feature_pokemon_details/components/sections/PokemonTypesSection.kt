@@ -23,39 +23,40 @@ import dev.whysoezzy.domain.model.PokemonType
 @Composable
 fun PokemonTypesSection(
     types: List<PokemonType>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
         ) {
             Text(
                 text = "Типы",
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
 
             Spacer(modifier = Modifier.height(12.dp))
 
             Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 types.forEach { type ->
                     Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = type.name.toTypeColor().copy(alpha = 0.3f)
-                        ),
-                        shape = RoundedCornerShape(20.dp)
+                        colors =
+                            CardDefaults.cardColors(
+                                containerColor = type.name.toTypeColor().copy(alpha = 0.3f),
+                            ),
+                        shape = RoundedCornerShape(20.dp),
                     ) {
                         Text(
                             text = type.name.toDisplayName(),
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Medium,
-                            color = type.name.toTypeColor()
+                            color = type.name.toTypeColor(),
                         )
                     }
                 }

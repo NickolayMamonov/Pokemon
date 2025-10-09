@@ -14,20 +14,21 @@ import dev.whysoezzy.core_common.extensions.toTypeColor
 fun TypeFilterChip(
     type: String,
     isSelected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     FilterChip(
         onClick = onClick,
         label = {
             Text(
                 text = type.toDisplayName(),
-                fontSize = 14.sp
+                fontSize = 14.sp,
             )
         },
         selected = isSelected,
-        colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = type.toTypeColor().copy(alpha = 0.3f),
-            selectedLabelColor = type.toTypeColor(),
-        )
+        colors =
+            FilterChipDefaults.filterChipColors(
+                selectedContainerColor = type.toTypeColor().copy(alpha = 0.3f),
+                selectedLabelColor = type.toTypeColor(),
+            ),
     )
 }
