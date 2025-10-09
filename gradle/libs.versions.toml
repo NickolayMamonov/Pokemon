@@ -18,6 +18,7 @@ lifecycleRuntimeComposeAndroid = "2.9.2"
 room = "2.7.2"
 okhttp = "5.1.0"
 timber = "5.0.1"
+navigation = "2.8.5"
 jetbrainsKotlinJvm = "2.2.10"
 appcompat = "1.7.1"
 material = "1.13.0"
@@ -62,6 +63,7 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

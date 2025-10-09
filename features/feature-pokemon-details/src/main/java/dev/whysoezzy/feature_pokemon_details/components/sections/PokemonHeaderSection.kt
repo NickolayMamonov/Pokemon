@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,62 +29,46 @@ import dev.whysoezzy.domain.model.Pokemon
 fun PokemonHeaderSection(
     pokemon: Pokemon,
     backgroundColor: Color,
-    isImageLoading: Boolean,
-    onImageLoadingChanged: (Boolean) -> Unit,
 ) {
     Box(
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .height(280.dp)
-                .background(
-                    brush =
-                        Brush.verticalGradient(
-                            colors =
-                                listOf(
-                                    backgroundColor.copy(alpha = 0.4f),
-                                    backgroundColor.copy(alpha = 0.1f),
-                                    Color.Transparent,
-                                ),
-                        ),
-                ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(280.dp)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        backgroundColor.copy(alpha = 0.4f),
+                        backgroundColor.copy(alpha = 0.1f),
+                        Color.Transparent
+                    )
+                )
+            )
     ) {
         Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Изображение покемона
             Card(
                 modifier = Modifier.size(180.dp),
                 shape = CircleShape,
-                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
+                    contentAlignment = Alignment.Center
                 ) {
                     AsyncImage(
                         model = pokemon.imageUrl,
                         contentDescription = "Изображение ${pokemon.name}",
-                        modifier =
-                            Modifier
-                                .fillMaxSize()
-                                .padding(16.dp),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
                         contentScale = ContentScale.Fit,
-                        onLoading = { onImageLoadingChanged(true) },
-                        onSuccess = { onImageLoadingChanged(false) },
-                        onError = { onImageLoadingChanged(false) },
                     )
 
-                    if (isImageLoading) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(48.dp),
-                            color = MaterialTheme.colorScheme.primary,
-                        )
-                    }
                 }
             }
 
@@ -97,7 +80,7 @@ fun PokemonHeaderSection(
                     text = "Общая сила: ${pokemon.totalStats}",
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
