@@ -1,5 +1,7 @@
 package dev.whysoezzy.core_network.dto
 
+import com.google.gson.annotations.SerializedName
+
 data class PokemonDetailsDto(
     val id: Int,
     val name: String,
@@ -11,15 +13,18 @@ data class PokemonDetailsDto(
 )
 
 data class SpritesDto(
+    @SerializedName("front_default")
     val frontDefault: String?,
     val other: OtherDto?,
 )
 
 data class OtherDto(
+    @SerializedName("official-artwork")
     val officialArtwork: OfficialArtworkDto?,
 )
 
 data class OfficialArtworkDto(
+    @SerializedName("front_default")
     val frontDefault: String?,
 )
 
@@ -34,7 +39,7 @@ data class TypeDto(
 )
 
 data class StatDto(
-//    @SerializedName("base_stat")
+    @SerializedName("base_stat")
     val baseStat: Int,
     val effort: Int,
     val stat: StatInfoDto,

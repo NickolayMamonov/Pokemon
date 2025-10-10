@@ -50,13 +50,16 @@ dependencies {
     // Unit Testing
     testImplementation(libs.junit)
     testImplementation(kotlin("test"))
-    testImplementation("io.mockk:mockk:1.13.8")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("io.mockk:mockk:1.14.6")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("app.cash.turbine:turbine:1.0.0")
 
     // Android Testing
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation("io.mockk:mockk-android:1.13.8")
+    androidTestImplementation("io.mockk:mockk-android:1.14.6")
+
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
 }
