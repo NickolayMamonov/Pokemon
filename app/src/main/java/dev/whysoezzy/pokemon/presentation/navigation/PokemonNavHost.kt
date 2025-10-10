@@ -1,6 +1,5 @@
 package dev.whysoezzy.pokemon.presentation.navigation
 
-import PokemonListScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -9,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import dev.whysoezzy.feature_pokemon_details.presentation.PokemonDetailsScreen
+import dev.whysoezzy.feature_pokemon_list.presentation.PokemonListScreen
 
 @Composable
 fun PokemonNavHost(
