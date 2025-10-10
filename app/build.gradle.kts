@@ -81,7 +81,7 @@ dependencies {
     // Unit Testing
     testImplementation(libs.junit)
     testImplementation(kotlin("test"))
-    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("io.mockk:mockk:1.14.6")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("app.cash.turbine:turbine:1.0.0")
@@ -91,7 +91,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
-    androidTestImplementation("io.mockk:mockk-android:1.13.8")
+    androidTestImplementation("io.mockk:mockk-android:1.14.6")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test:rules:1.5.0")
