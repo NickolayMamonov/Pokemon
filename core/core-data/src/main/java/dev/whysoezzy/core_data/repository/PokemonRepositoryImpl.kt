@@ -171,10 +171,7 @@ class PokemonRepositoryImpl(
 
             // Проверяем что у кэшированного покемона есть валидные статистики
             val hasValidStats = cachedPokemon.stats.any { it.baseStat > 0 }
-            if (!hasValidStats) {
-                Timber.w("Cached Pokemon $id has invalid stats, forcing API reload")
-                // Пропускаем кэш и загружаем из API
-            } else {
+            if (hasValidStats) {
                 val domainModel = cachedPokemon.toDomainModel()
                 Timber.d("Cached domain model stats: ${domainModel.stats.map { "${it.name}: ${it.baseStat}" }}")
 
@@ -186,6 +183,9 @@ class PokemonRepositoryImpl(
                 }
 
                 return Result.success(domainModel)
+            } else {
+                Timber.w("Cached Pokemon $id has invalid stats, forcing API reload")
+                // Продолжаем выполнение - загрузим из API ниже
             }
         }
 
@@ -231,7 +231,7 @@ class PokemonRepositoryImpl(
                 lastException = e
                 if (attempt == maxAttempts - 1) {
                     // Это последняя попытка, выбрасываем исключение
-                    throw lastException!!
+                    throw lastException
                 }
 
                 Timber.w(e, "Попытка ${attempt + 1} неудачна, повторяем через ${delay}мс")
