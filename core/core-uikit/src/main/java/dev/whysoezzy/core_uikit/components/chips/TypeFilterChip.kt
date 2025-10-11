@@ -6,8 +6,9 @@ import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.sp
-import dev.whysoezzy.core_common.extensions.toDisplayName
-import dev.whysoezzy.core_common.extensions.toTypeColor
+import dev.whysoezzy.core_uikit.extensions.toDisplayName
+import dev.whysoezzy.core_uikit.extensions.toTypeColor
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

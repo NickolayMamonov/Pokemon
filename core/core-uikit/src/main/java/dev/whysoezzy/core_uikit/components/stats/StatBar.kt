@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.whysoezzy.core_common.extensions.toStatColor
+import dev.whysoezzy.core_uikit.extensions.toStatColor
 
 @Composable
 fun StatBar(

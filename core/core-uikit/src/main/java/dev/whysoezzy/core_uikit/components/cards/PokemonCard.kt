@@ -24,9 +24,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import dev.whysoezzy.core_common.extensions.toDisplayName
-import dev.whysoezzy.core_common.extensions.toTypeColor
+
 import dev.whysoezzy.core_uikit.components.stats.StatItem
+import dev.whysoezzy.core_uikit.extensions.toDisplayName
+import dev.whysoezzy.core_uikit.extensions.toTypeColor
 import dev.whysoezzy.domain.model.Pokemon
 
 @OptIn(ExperimentalMaterial3Api::class)

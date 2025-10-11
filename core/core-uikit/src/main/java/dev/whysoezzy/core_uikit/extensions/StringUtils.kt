@@ -1,4 +1,4 @@
-package dev.whysoezzy.core_common.extensions
+package dev.whysoezzy.core_uikit.extensions
 
 import dev.whysoezzy.domain.model.SortBy
 import java.util.Locale
