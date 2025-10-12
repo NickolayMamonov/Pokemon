@@ -104,7 +104,6 @@ fun PokemonListScreen(
                             filter.selectedTypes.isNotEmpty() ||
                                     filter.sortBy != SortBy.ID ||
                                     !filter.isAscending,
-                        onClearFilters = viewModel::clearFilters
                     )
 
                     PullToRefreshBox(
