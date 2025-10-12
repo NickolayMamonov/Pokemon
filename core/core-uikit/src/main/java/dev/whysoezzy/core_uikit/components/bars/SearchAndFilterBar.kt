@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Menu
@@ -24,7 +23,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import dev.whysoezzy.core_uikit.R
+import dev.whysoezzy.core_uikit.theme.Elevation
+import dev.whysoezzy.core_uikit.theme.PokemonShapes
+import dev.whysoezzy.core_uikit.theme.dimensions
+import dev.whysoezzy.core_uikit.theme.spacing
 
 @Composable
 fun SearchAndFilterBar(
@@ -33,16 +37,15 @@ fun SearchAndFilterBar(
     onSearchQueryChange: (String) -> Unit,
     onFilterClick: () -> Unit,
     hasActiveFilters: Boolean,
-    onClearFilters: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = modifier.padding(spacing().medium),
     ) {
         // Основная строка поиска
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(spacing().mediumSmall),
         ) {
             // Поисковая строка
             OutlinedTextField(
@@ -50,13 +53,13 @@ fun SearchAndFilterBar(
                 onValueChange = onSearchQueryChange,
                 label = {
                     Text(
-                        "Поиск покемонов",
+                        stringResource(R.string.search_pokemons),
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 },
                 placeholder = {
                     Text(
-                        "Введите имя, ID или тип...",
+                        stringResource(R.string.enter_the),
                         style =
                             MaterialTheme.typography.bodyMedium.copy(
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
@@ -66,22 +69,22 @@ fun SearchAndFilterBar(
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Search,
-                        contentDescription = "Поиск",
+                        contentDescription = stringResource(R.string.search),
                         tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(dimensions().iconSizeMedium),
                     )
                 },
                 trailingIcon = {
                     if (searchQuery.isNotEmpty()) {
                         IconButton(
                             onClick = { onSearchQueryChange("") },
-                            modifier = Modifier.size(40.dp),
+                            modifier = Modifier.size(dimensions().iconSizeLarge),
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Clear,
-                                contentDescription = "Очистить поиск",
+                                contentDescription = stringResource(R.string.clear_search),
                                 tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                                modifier = Modifier.size(20.dp),
+                                modifier = Modifier.size(dimensions().iconSizeMedium),
                             )
                         }
                     }
@@ -95,18 +98,18 @@ fun SearchAndFilterBar(
                         focusedLabelColor = MaterialTheme.colorScheme.primary,
                         cursorColor = MaterialTheme.colorScheme.primary,
                     ),
-                shape = RoundedCornerShape(12.dp),
+                shape = PokemonShapes.medium,
             )
             // Кнопка фильтров
             Card(
                 onClick = onFilterClick,
                 modifier =
                     Modifier
-                        .size(56.dp)
-                        .padding(top = 4.dp),
+                        .size(spacing().huge)
+                        .padding(top = spacing().extraSmall),
                 elevation =
                     CardDefaults.cardElevation(
-                        defaultElevation = if (hasActiveFilters) 8.dp else 4.dp,
+                        defaultElevation = if (hasActiveFilters) Elevation.Level4 else Elevation.Level2,
                     ),
                 colors =
                     CardDefaults.cardColors(
@@ -123,7 +126,7 @@ fun SearchAndFilterBar(
                                 MaterialTheme.colorScheme.onSurfaceVariant
                             },
                     ),
-                shape = RoundedCornerShape(16.dp),
+                shape = PokemonShapes.large,
             ) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -131,8 +134,8 @@ fun SearchAndFilterBar(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Menu,
-                        contentDescription = "Фильтры",
-                        modifier = Modifier.size(24.dp),
+                        contentDescription = stringResource(R.string.filters),
+                        modifier = Modifier.size(dimensions().iconSizeMedium),
                     )
                 }
             }

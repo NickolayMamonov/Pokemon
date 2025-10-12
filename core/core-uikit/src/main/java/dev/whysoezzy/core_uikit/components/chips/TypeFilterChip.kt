@@ -1,16 +1,14 @@
 package dev.whysoezzy.core_uikit.components.chips
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.sp
 import dev.whysoezzy.core_uikit.extensions.toDisplayName
 import dev.whysoezzy.core_uikit.extensions.toTypeColor
+import dev.whysoezzy.core_uikit.theme.PokemonTextStyles
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TypeFilterChip(
     type: String,
@@ -22,7 +20,7 @@ fun TypeFilterChip(
         label = {
             Text(
                 text = type.toDisplayName(),
-                fontSize = 14.sp,
+                style = PokemonTextStyles.TypeLabel,
             )
         },
         selected = isSelected,

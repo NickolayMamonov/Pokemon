@@ -83,6 +83,20 @@ data class Dimensions(
     val dividerThicknessThick: Dp = 2.dp,
 
     // ========================================
+    // SPACER HEIGHTS (Высоты для Spacer)
+    // ========================================
+
+    val spacerExtraSmall: Dp = 4.dp,
+    val spacerSmall: Dp = 8.dp,
+    val spacerMediumSmall: Dp = 12.dp,
+    val spacerMedium: Dp = 16.dp,
+    val spacerMediumLarge: Dp = 20.dp,
+    val spacerLarge: Dp = 24.dp,
+    val spacerExtraLarge: Dp = 32.dp,
+    val spacerHuge: Dp = 48.dp,
+    val spacerMega: Dp = 64.dp,
+
+    // ========================================
     // CHIPS (Чипсы для типов)
     // ========================================
     val chipHeightSmall: Dp = 20.dp,

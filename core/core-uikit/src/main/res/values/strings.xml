@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_pokemons">Поиск покемонов</string>
+    <string name="enter_the">Введите имя, ID или тип…</string>
+    <string name="search">Поиск</string>
+    <string name="clear_search">Очистить поиск</string>
+    <string name="filters">Фильтры</string>
+    <string name="image">Изображение %1$s</string>
+    <string name="height">Рост</string>
+    <string name="weight">Вес</string>
+    <string name="sortby">Сортировать по</string>
+    <string name="something_went_wrong">Что-то пошло не так</string>
+    <string name="error">Ошибка</string>
+    <string name="retry">Повторить</string>
+    <string name="error_loading_details">Ошибка загрузки деталей</string>
+    <string name="loading_error">Ошибка загрузки</string>
+    <string name="loading_pokemons">Загружаем покемонов…</string>
+    <string name="no_results_found">No Results Found</string>
+    <string name="filters_and_sort">Фильтры и сортировка</string>
+    <string name="reset">Сбросить</string>
+    <string name="sort">Сортировка</string>
+    <string name="ascending_order">По возрастанию ↑</string>
+    <string name="descending_order">По убыванию ↓</string>
+    <string name="pokemon_types">Типы покемонов</string>
+    <string name="selected_type_size">%1$d выбрано</string>
+    <string name="pokemon_with_all_the_selected_types_will_be_shown">Будут показаны покемоны, имеющие ВСЕ выбранные типы</string>
+    <string name="cancel">Отмена</string>
+    <string name="apply">Применить</string>
+</resources>
