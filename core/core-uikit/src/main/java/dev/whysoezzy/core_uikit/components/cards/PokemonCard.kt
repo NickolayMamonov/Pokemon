@@ -98,6 +98,7 @@ fun PokemonCard(
                                     .fillMaxWidth()
                                     .padding(vertical = spacing().extraSmall),
                             style = PokemonTextStyles.TypeLabel,
+                            textAlign = TextAlign.Center,
                             color = type.name.toTypeColor()
                         )
                     }
