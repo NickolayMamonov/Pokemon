@@ -20,8 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dev.whysoezzy.core_common.extensions.toDisplayName
-import dev.whysoezzy.core_common.extensions.toTypeColor
+import dev.whysoezzy.core_uikit.extensions.toDisplayName
+import dev.whysoezzy.core_uikit.extensions.toTypeColor
+
 import dev.whysoezzy.domain.model.Pokemon
 import dev.whysoezzy.feature_pokemon_details.components.sections.PokemonBattleStatsSection
 import dev.whysoezzy.feature_pokemon_details.components.sections.PokemonHeaderSection

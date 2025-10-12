@@ -17,9 +17,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import dev.whysoezzy.core_uikit.R
+import dev.whysoezzy.core_uikit.theme.Elevation
+import dev.whysoezzy.core_uikit.theme.dimensions
+import dev.whysoezzy.core_uikit.theme.spacing
 
 /**
  * Универсальный компонент для отображения ошибок
@@ -27,10 +30,10 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun ErrorMessage(
+    modifier: Modifier = Modifier,
     error: String,
     onRetry: (() -> Unit)? = null,
     onDismiss: (() -> Unit)? = null,
-    modifier: Modifier = Modifier,
     isFullScreen: Boolean = true,
 ) {
     if (isFullScreen) {
@@ -39,26 +42,17 @@ fun ErrorMessage(
             modifier =
                 modifier
                     .fillMaxSize()
-                    .padding(32.dp),
+                    .padding(spacing().extraLarge),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = "⚠️",
-                style = MaterialTheme.typography.displayMedium,
-                textAlign = TextAlign.Center,
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = "Something went wrong",
+                text = stringResource(R.string.something_went_wrong),
                 style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(dimensions().spacerSmall))
 
             Text(
                 text = error,
@@ -67,10 +61,10 @@ fun ErrorMessage(
                 textAlign = TextAlign.Center,
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(dimensions().spacerLarge))
 
             Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalArrangement = Arrangement.spacedBy(spacing().mediumSmall),
             ) {
                 if (onDismiss != null) {
                     OutlinedButton(
@@ -99,13 +93,13 @@ fun ErrorMessage(
                 CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.errorContainer,
                 ),
-            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = Elevation.Level2),
         ) {
             Row(
                 modifier =
                     Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(spacing().medium),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
@@ -113,9 +107,8 @@ fun ErrorMessage(
                     modifier = Modifier.weight(1f),
                 ) {
                     Text(
-                        text = "Error",
+                        text = stringResource(R.string.error),
                         style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onErrorContainer,
                     )
 
@@ -135,7 +128,7 @@ fun ErrorMessage(
                                 contentColor = MaterialTheme.colorScheme.onError,
                             ),
                     ) {
-                        Text("Retry")
+                        Text(stringResource(R.string.retry))
                     }
                 }
             }

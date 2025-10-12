@@ -31,10 +31,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import dev.whysoezzy.core_uikit.R
 import dev.whysoezzy.core_uikit.components.chips.TypeFilterChip
 import dev.whysoezzy.core_uikit.components.dropdown.SortByDropdown
+import dev.whysoezzy.core_uikit.theme.Elevation
+import dev.whysoezzy.core_uikit.theme.PokemonElevation
+import dev.whysoezzy.core_uikit.theme.dimensions
+import dev.whysoezzy.core_uikit.theme.spacing
 import dev.whysoezzy.domain.model.PokemonFilter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,10 +53,9 @@ fun FilterBottomSheet(
     var currentFilter by remember { mutableStateOf(filter) }
 
     Column(
-        modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(24.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(spacing().large),
     ) {
         // Заголовок
         Row(
@@ -68,38 +71,36 @@ fun FilterBottomSheet(
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(dimensions().spacerSmall))
                 Text(
-                    text = "Фильтры и сортировка",
+                    text = stringResource(R.string.filters_and_sort),
                     style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
                 )
             }
 
             TextButton(onClick = {
                 currentFilter = PokemonFilter()
             }) {
-                Text("Сбросить")
+                Text(stringResource(R.string.reset))
             }
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(dimensions().spacerLarge))
 
         // Сортировка
         Card(
             modifier = Modifier.fillMaxWidth(),
-            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = PokemonElevation.PokemonCard),
         ) {
             Column(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.padding(spacing().medium),
             ) {
                 Text(
-                    text = "Сортировка",
+                    text = stringResource(R.string.sort),
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Medium,
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(dimensions().spacerMediumSmall))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -120,7 +121,11 @@ fun FilterBottomSheet(
                         },
                         label = {
                             Text(
-                                text = if (currentFilter.isAscending) "По возрастанию ↑" else "По убыванию ↓",
+                                text =
+                                    if (currentFilter.isAscending) stringResource(R.string.ascending_order)
+                                    else stringResource(
+                                        R.string.descending_order
+                                    ),
                             )
                         },
                         selected = true,
@@ -129,16 +134,16 @@ fun FilterBottomSheet(
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(dimensions().spacerMedium))
 
         // Фильтрация по типам
         if (availableTypes.isNotEmpty()) {
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = Elevation.Level2),
             ) {
                 Column(
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(spacing().medium),
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -146,14 +151,16 @@ fun FilterBottomSheet(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
-                            text = "Типы покемонов",
+                            text = stringResource(R.string.pokemon_types),
                             style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Medium,
                         )
 
                         if (currentFilter.selectedTypes.isNotEmpty()) {
                             Text(
-                                text = "${currentFilter.selectedTypes.size} выбрано",
+                                text = stringResource(
+                                    R.string.selected_type_size,
+                                    currentFilter.selectedTypes.size
+                                ),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.primary,
                             )
@@ -162,29 +169,27 @@ fun FilterBottomSheet(
 
                     // Информация о логике фильтрации
                     if (currentFilter.selectedTypes.size > 1) {
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(dimensions().spacerSmall))
                         Card(
-                            colors =
-                                CardDefaults.cardColors(
-                                    containerColor =
-                                        MaterialTheme.colorScheme.primaryContainer.copy(
-                                            alpha = 0.3f,
-                                        ),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.primaryContainer.copy(
+                                    alpha = 0.3f,
                                 ),
+                            ),
                         ) {
                             Row(
-                                modifier = Modifier.padding(12.dp),
+                                modifier = Modifier.padding(spacing().mediumSmall),
                                 verticalAlignment = Alignment.CenterVertically,
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Info,
                                     contentDescription = null,
                                     tint = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier.size(16.dp),
+                                    modifier = Modifier.size(dimensions().iconSizeSmall),
                                 )
-                                Spacer(modifier = Modifier.width(8.dp))
+                                Spacer(modifier = Modifier.width(dimensions().spacerSmall))
                                 Text(
-                                    text = "Будут показаны покемоны, имеющие ВСЕ выбранные типы",
+                                    text = stringResource(R.string.pokemon_with_all_the_selected_types_will_be_shown),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.primary,
                                 )
@@ -192,10 +197,10 @@ fun FilterBottomSheet(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(dimensions().spacerMediumSmall))
 
                     LazyRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(spacing().small),
                     ) {
                         items(availableTypes.sorted()) { type ->
                             TypeFilterChip(
@@ -217,18 +222,18 @@ fun FilterBottomSheet(
             }
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(dimensions().spacerLarge))
 
         // Кнопки действий
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(spacing().mediumSmall),
         ) {
             OutlinedButton(
                 onClick = onDismiss,
                 modifier = Modifier.weight(1f),
             ) {
-                Text("Отмена")
+                Text(stringResource(R.string.cancel))
             }
 
             Button(
@@ -238,7 +243,7 @@ fun FilterBottomSheet(
                 },
                 modifier = Modifier.weight(1f),
             ) {
-                Text("Применить")
+                Text(stringResource(R.string.apply))
             }
         }
     }

@@ -12,9 +12,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import dev.whysoezzy.core_uikit.R
+import dev.whysoezzy.core_uikit.theme.dimensions
+import dev.whysoezzy.core_uikit.theme.spacing
 
 @Composable
 fun ErrorMessageDetail(
@@ -25,18 +27,17 @@ fun ErrorMessageDetail(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(32.dp),
+            .padding(spacing().extraLarge),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Ошибка загрузки деталей",
+            text = stringResource(R.string.error_loading_details),
             style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(dimensions().spacerSmall))
 
         Text(
             text = error,
@@ -45,12 +46,12 @@ fun ErrorMessageDetail(
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(dimensions().spacerLarge))
 
         Button(
             onClick = onRetry
         ) {
-            Text("Повторить")
+            Text(stringResource(R.string.retry))
         }
     }
 }

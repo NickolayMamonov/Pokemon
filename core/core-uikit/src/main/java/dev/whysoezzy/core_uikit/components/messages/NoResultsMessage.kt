@@ -12,44 +12,36 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import dev.whysoezzy.core_uikit.R
+import dev.whysoezzy.core_uikit.theme.dimensions
+import dev.whysoezzy.core_uikit.theme.spacing
 
 @Composable
 fun NoResultsMessage(
+    modifier: Modifier = Modifier,
     message: String,
     actionText: String? = null,
     onRetry: (() -> Unit)? = null,
-    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier =
             modifier
                 .fillMaxSize()
-                .padding(32.dp),
+                .padding(spacing().extraLarge),
         contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "🔍",
-                fontSize = 48.sp,
-                textAlign = TextAlign.Center,
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = "No Results Found",
+                text = stringResource(R.string.no_results_found),
                 style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(dimensions().spacerSmall))
 
             Text(
                 text = message,
@@ -59,34 +51,13 @@ fun NoResultsMessage(
             )
 
             if (onRetry != null) {
-                Spacer(modifier = Modifier.height(16.dp))
-
+                Spacer(modifier = Modifier.height(dimensions().spacerMedium))
                 Button(
                     onClick = onRetry,
                 ) {
-                    Text(actionText ?: "Retry")
+                    Text(actionText ?: stringResource(R.string.retry))
                 }
             }
         }
     }
-}
-
-// Overloaded version for backward compatibility
-@Composable
-fun NoResultsMessage(
-    hasActiveFilters: Boolean = false,
-    onClearFilters: () -> Unit = {},
-) {
-    val message =
-        if (hasActiveFilters) {
-            "Покемоны с выбранными фильтрами не найдены.\nПопробуйте изменить параметры поиска."
-        } else {
-            "Покемоны не загружены.\nПроверьте подключение к интернету."
-        }
-
-    NoResultsMessage(
-        message = message,
-        actionText = if (hasActiveFilters) "Очистить фильтры" else null,
-        onRetry = if (hasActiveFilters) onClearFilters else null,
-    )
 }

@@ -5,8 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
+import dev.whysoezzy.core_uikit.theme.PokemonTextStyles
 
 @Composable
 fun StatItem(
@@ -18,13 +17,12 @@ fun StatItem(
     ) {
         Text(
             text = label,
-            fontSize = 12.sp,
+            style = PokemonTextStyles.StatLabel,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
         )
         Text(
             text = value,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Medium,
+            style = PokemonTextStyles.StatValue,
             color = MaterialTheme.colorScheme.onSurface,
         )
     }
