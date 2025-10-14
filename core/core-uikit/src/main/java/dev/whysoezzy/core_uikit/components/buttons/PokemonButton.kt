@@ -2,6 +2,7 @@ package dev.whysoezzy.core_uikit.components.buttons
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -109,6 +110,17 @@ fun PokemonButton(
                 shape = CustomShapes.Button,
                 interactionSource = interactionSource,
                 contentPadding = PaddingValues(horizontal = horizontalPadding),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                    disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                ),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 2.dp,
+                    pressedElevation = 6.dp,
+                    disabledElevation = 0.dp
+                ),
                 modifier = modifier
                     .height(buttonHeight)
                     .scale(scale)
@@ -138,8 +150,15 @@ fun PokemonButton(
                     .scale(scale)
                     .animateContentSize(),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.secondary,
-                    contentColor = MaterialTheme.colorScheme.onSecondary,
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                    disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                ),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 2.dp,
+                    pressedElevation = 6.dp,
+                    disabledElevation = 0.dp
                 )
             ) {
                 PokemonButtonContent(
@@ -160,6 +179,15 @@ fun PokemonButton(
                 shape = CustomShapes.Button,
                 interactionSource = interactionSource,
                 contentPadding = PaddingValues(horizontal = horizontalPadding),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = MaterialTheme.colorScheme.primary,
+                    disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                ),
+                border = BorderStroke(
+                    width = 2.dp,
+                    color = if (enabled) MaterialTheme.colorScheme.primary
+                    else MaterialTheme.colorScheme.outlineVariant
+                ),
                 modifier = modifier
                     .height(buttonHeight)
                     .scale(scale)
@@ -183,6 +211,10 @@ fun PokemonButton(
                 shape = CustomShapes.Button,
                 interactionSource = interactionSource,
                 contentPadding = PaddingValues(horizontal = horizontalPadding),
+                colors = ButtonDefaults.textButtonColors(
+                    contentColor = MaterialTheme.colorScheme.primary,
+                    disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                ),
                 modifier = modifier
                     .height(buttonHeight)
                     .scale(scale)

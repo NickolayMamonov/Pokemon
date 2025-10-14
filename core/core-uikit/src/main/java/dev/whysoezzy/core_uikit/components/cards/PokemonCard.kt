@@ -8,6 +8,7 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,12 +17,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,14 +36,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import dev.whysoezzy.core_uikit.components.buttons.PokemonIconButton
-import dev.whysoezzy.core_uikit.components.buttons.PokemonIconButtonStyle
+import dev.whysoezzy.core_uikit.R
 import dev.whysoezzy.core_uikit.components.chips.PokemonTypeChip
 import dev.whysoezzy.core_uikit.components.chips.TypeChipSize
 import dev.whysoezzy.core_uikit.extensions.toDisplayName
@@ -57,7 +62,8 @@ import dev.whysoezzy.core_uikit.theme.spacing
 enum class PokemonCardVariant {
     STANDARD,
     COMPACT,
-    LARGE
+    LARGE,
+
 }
 
 @Composable
@@ -189,23 +195,42 @@ fun PokemonCard(
             }
 
             if (showFavouriteButton && onFavoriteClick != null) {
-                PokemonIconButton(
-                    icon = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                    onClick = onFavoriteClick,
+                Box(
                     modifier = Modifier
                         .align(Alignment.TopEnd)
-                        .padding(spacing().small),
-                    style = PokemonIconButtonStyle.FILLED,
-                    tint = if (isFavorite) PokemonBrandColors.Red else MaterialTheme.colorScheme.onSurface,
-                    contentDescription = if (isFavorite) "Удалить из избранного" else "Добавить в избранное"
-                )
+                        .padding(spacing().small)
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(
+                            color = if (isFavorite) {
+                                Color.Red.copy(alpha = 0.15f)
+                            } else {
+                                MaterialTheme.colorScheme.surface.copy(alpha = 0.7f)
+                            }
+                        )
+                        .clickable(onClick = onFavoriteClick),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = if (isFavorite) ImageVector.vectorResource(R.drawable.outline_favorite) else ImageVector.vectorResource(
+                            R.drawable.outline_favorite_border_24
+                        ),
+                        contentDescription = if (isFavorite) "Удалить из избранного" else "Добавить в избранное",
+                        tint = if (isFavorite) {
+                            PokemonBrandColors.Red
+                        } else {
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                        },
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
             }
         }
 
     }
 }
 
-@Preview(name = "Pokemon Card - Light", showBackground = true)
+@Preview(name = "Pokemon Cards - Light", showBackground = true, heightDp = 1400)
 @Composable
 private fun PokemonCardPreviewLight() {
     PokemonTheme(darkTheme = false) {
@@ -213,7 +238,7 @@ private fun PokemonCardPreviewLight() {
     }
 }
 
-@Preview(name = "Pokemon Card - Dark", showBackground = true)
+@Preview(name = "Pokemon Cards - Dark", showBackground = true, heightDp = 1400)
 @Composable
 private fun PokemonCardPreviewDark() {
     PokemonTheme(darkTheme = true) {
@@ -227,67 +252,105 @@ private fun PokemonCardShowcase() {
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(spacing().medium),
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(spacing().medium),
             verticalArrangement = Arrangement.spacedBy(spacing().medium)
         ) {
-            Text(
-                text = "Pokemon Cards",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold
-            )
+            item {
+                Text(
+                    text = "Pokemon Cards",
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold
+                )
+            }
 
-            // Standard variant
-            Text("Standard", style = MaterialTheme.typography.titleMedium)
-            PokemonCard(
-                id = 25,
-                name = "pikachu",
-                imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-                types = listOf("electric"),
-                onClick = { },
-                variant = PokemonCardVariant.STANDARD
-            )
+            // Grid Cards
+            item {
+                Text("Grid Cards (for VerticalGrid)", style = MaterialTheme.typography.titleMedium)
+            }
 
-            // With favorite button
-            Text("With Favorite", style = MaterialTheme.typography.titleMedium)
-            PokemonCard(
-                id = 6,
-                name = "charizard",
-                imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
-                types = listOf("fire", "flying"),
-                onClick = { },
-                variant = PokemonCardVariant.STANDARD,
-                showFavouriteButton = true,
-                isFavorite = true,
-                onFavoriteClick = { }
-            )
+            item {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier.height(650.dp),
+                    horizontalArrangement = Arrangement.spacedBy(spacing().medium),
+                    verticalArrangement = Arrangement.spacedBy(spacing().medium),
+                    userScrollEnabled = false
+                ) {
+                    items(
+                        listOf(
+                            Triple(25, "pikachu", listOf("electric")),
+                            Triple(6, "charizard", listOf("fire", "flying")),
+                            Triple(1, "bulbasaur", listOf("grass", "poison")),
+                            Triple(9, "blastoise", listOf("water"))
+                        )
+                    ) { (id, name, types) ->
+                        PokemonGridCard(
+                            id = id,
+                            name = name,
+                            imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png",
+                            types = types,
+                            onClick = { },
+                            showFavoriteButton = true,
+                            isFavorite = id == 25,
+                            onFavoriteClick = { }
+                        )
+                    }
+                }
+            }
 
-            // Compact variant
-            Text("Compact", style = MaterialTheme.typography.titleMedium)
-            PokemonCard(
-                id = 1,
-                name = "bulbasaur",
-                imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-                types = listOf("grass", "poison"),
-                onClick = { },
-                variant = PokemonCardVariant.COMPACT
-            )
+            // List Cards
+            item {
+                Text("List Cards (Standard)", style = MaterialTheme.typography.titleMedium)
+            }
 
-            // Large variant
-            Text("Large", style = MaterialTheme.typography.titleMedium)
-            PokemonCard(
-                id = 9,
-                name = "blastoise",
-                imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png",
-                types = listOf("water"),
-                onClick = { },
-                variant = PokemonCardVariant.LARGE,
-                showFavouriteButton = true,
-                isFavorite = false,
-                onFavoriteClick = { }
-            )
+            item {
+                PokemonCard(
+                    id = 25,
+                    name = "pikachu",
+                    imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+                    types = listOf("electric"),
+                    onClick = { },
+                    variant = PokemonCardVariant.STANDARD,
+                    showFavouriteButton = true,
+                    isFavorite = true,
+                    onFavoriteClick = { }
+                )
+            }
+
+            item {
+                Text("Compact", style = MaterialTheme.typography.titleMedium)
+            }
+
+            item {
+                PokemonCard(
+                    id = 1,
+                    name = "bulbasaur",
+                    imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+                    types = listOf("grass", "poison"),
+                    onClick = { },
+                    variant = PokemonCardVariant.COMPACT
+                )
+            }
+
+            item {
+                Text("Large", style = MaterialTheme.typography.titleMedium)
+            }
+
+            item {
+                PokemonCard(
+                    id = 6,
+                    name = "charizard",
+                    imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
+                    types = listOf("fire", "flying"),
+                    onClick = { },
+                    variant = PokemonCardVariant.LARGE,
+                    showFavouriteButton = true,
+                    isFavorite = false,
+                    onFavoriteClick = { }
+                )
+            }
         }
     }
 }
