@@ -10,6 +10,7 @@ import androidx.navigation.navArgument
 import dev.whysoezzy.feature_favorites.presentation.FavoritesScreen
 import dev.whysoezzy.feature_pokemon_details.presentation.PokemonDetailsScreen
 import dev.whysoezzy.feature_pokemon_list.presentation.PokemonListScreen
+import dev.whysoezzy.feature_settings.presentation.SettingsScreen
 
 @Composable
 fun PokemonNavHost(
@@ -28,6 +29,21 @@ fun PokemonNavHost(
                 }
             )
         }
+        composable(route = Screen.Settings.route) {
+            SettingsScreen()
+        }
+        composable(route = Screen.Favorites.route) {
+            FavoritesScreen(
+                onPokemonSelected = { pokemon ->
+                    navController.navigate(Screen.PokemonDetails.createRoute(pokemon.id))
+                },
+                onNavigateToPokedex = {
+                    navController.navigate(Screen.PokemonList.route) {
+                        popUpTo(Screen.PokemonList.route) { inclusive = false }
+                    }
+                }
+            )
+        }
         composable(
             route = Screen.PokemonDetails.route,
             arguments = listOf(
@@ -40,18 +56,6 @@ fun PokemonNavHost(
             PokemonDetailsScreen(
                 pokemonId = pokemonId,
                 onBackClick = { navController.popBackStack() }
-            )
-        }
-        composable(route = Screen.Favorites.route) {
-            FavoritesScreen(
-                onPokemonSelected = { pokemon ->
-                    navController.navigate(Screen.PokemonDetails.createRoute(pokemon.id))
-                },
-                onNavigateToPokedex = {
-                    navController.navigate(Screen.PokemonList.route) {
-                        popUpTo(Screen.PokemonList.route) { inclusive = false }
-                    }
-                }
             )
         }
 
