@@ -1,6 +1,8 @@
 package dev.whysoezzy.core_data.di
 
+import dev.whysoezzy.core_data.repository.FavoritesRepositoryImpl
 import dev.whysoezzy.core_data.repository.PokemonRepositoryImpl
+import dev.whysoezzy.domain.repository.FavoritesRepository
 import dev.whysoezzy.domain.repository.PokemonRepository
 import org.koin.dsl.module
 
@@ -9,4 +11,9 @@ val dataModule =
         single<PokemonRepository> {
             PokemonRepositoryImpl(get(), get())
         }
+
+        single<FavoritesRepository> {
+            FavoritesRepositoryImpl(get())
+        }
+
     }

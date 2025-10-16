@@ -14,7 +14,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -92,15 +91,12 @@ fun PokemonListScreen(
             }
         }
     }
+    Box(modifier = Modifier.fillMaxSize()) {
 
-    Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) }
-    ) { paddingValues ->
         Column(
             modifier =
                 Modifier
                     .fillMaxSize()
-                    .padding(paddingValues),
         ) {
             when {
                 pokemonPagingItems.loadState.refresh is LoadState.Error -> {
@@ -188,7 +184,11 @@ fun PokemonListScreen(
                                         imageUrl = pokemon.imageUrl,
                                         types = pokemon.types.map { it.name },
                                         onClick = { onPokemonSelected(pokemon) },
-                                        showFavoriteButton = false
+                                        showFavoriteButton = true,
+                                        isFavorite = pokemon.isFavorite,
+                                        onFavoriteClick = {
+                                            viewModel.toggleFavorite(pokemon.id)
+                                        }
                                     )
                                 }
                             }
@@ -242,9 +242,11 @@ fun PokemonListScreen(
                 }
             }
         }
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
     }
-
-    // Bottom Sheet для фильтров
     if (showFilterBottomSheet) {
         ModalBottomSheet(
             onDismissRequest = { showFilterBottomSheet = false },

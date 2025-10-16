@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import dev.whysoezzy.feature_favorites.presentation.FavoritesScreen
 import dev.whysoezzy.feature_pokemon_details.presentation.PokemonDetailsScreen
 import dev.whysoezzy.feature_pokemon_list.presentation.PokemonListScreen
 
@@ -39,6 +40,18 @@ fun PokemonNavHost(
             PokemonDetailsScreen(
                 pokemonId = pokemonId,
                 onBackClick = { navController.popBackStack() }
+            )
+        }
+        composable(route = Screen.Favorites.route) {
+            FavoritesScreen(
+                onPokemonSelected = { pokemon ->
+                    navController.navigate(Screen.PokemonDetails.createRoute(pokemon.id))
+                },
+                onNavigateToPokedex = {
+                    navController.navigate(Screen.PokemonList.route) {
+                        popUpTo(Screen.PokemonList.route) { inclusive = false }
+                    }
+                }
             )
         }
 

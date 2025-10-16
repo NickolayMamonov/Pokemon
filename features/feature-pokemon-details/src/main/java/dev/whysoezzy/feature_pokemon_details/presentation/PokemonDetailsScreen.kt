@@ -2,15 +2,7 @@ package dev.whysoezzy.feature_pokemon_details.presentation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -38,49 +30,20 @@ fun PokemonDetailsScreen(
 
     when (val state = uiState) {
         is PokemonDetailsUiState.Loading -> {
-            Scaffold(
-                topBar = {
-                    TopAppBar(
-                        title = { Text("Загрузка...") },
-                        navigationIcon = {
-                            IconButton(onClick = onBackClick) {
-                                Icon(Icons.Default.ArrowBack, contentDescription = "Назад")
-                            }
-                        }
-                    )
-                }
-            ) { paddingValues ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues),
-                    contentAlignment = Alignment.Center
-                ) {
-                    LoadingIndicator()
-                }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                LoadingIndicator()
             }
         }
 
         is PokemonDetailsUiState.Error -> {
-            Scaffold(
-                topBar = {
-                    TopAppBar(
-                        title = { Text("Ошибка") },
-                        navigationIcon = {
-                            IconButton(onClick = onBackClick) {
-                                Icon(Icons.Default.ArrowBack, contentDescription = "Назад")
-                            }
-                        }
-                    )
-                }
-            ) { paddingValues ->
-                ErrorMessageDetail(
-                    error = state.message,
-                    onRetry = { viewModel.loadPokemon(pokemonId) },
-                    modifier = Modifier.padding(paddingValues)
-                )
-
-            }
+            ErrorMessageDetail(
+                error = state.message,
+                onRetry = { viewModel.loadPokemon(pokemonId) },
+            )
         }
 
         is PokemonDetailsUiState.Success -> {
