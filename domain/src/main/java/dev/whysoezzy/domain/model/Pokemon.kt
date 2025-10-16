@@ -8,6 +8,7 @@ data class Pokemon(
     val imageUrl: String,
     val types: List<PokemonType>,
     val stats: List<PokemonStat>,
+    val isFavorite: Boolean = false
 ) {
     val hp: Int get() = stats.find { it.name == "hp" }?.baseStat ?: 0
     val attack: Int get() = stats.find { it.name == "attack" }?.baseStat ?: 0

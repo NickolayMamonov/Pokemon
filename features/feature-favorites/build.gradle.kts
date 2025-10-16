@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "dev.whysoezzy.core_data"
+    namespace = "dev.whysoezzy.feature_favorites"
     compileSdk = 36
 
     defaultConfig {
@@ -19,7 +20,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
+                "proguard-rules.pro"
             )
         }
     }
@@ -33,21 +34,18 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:core-common"))
-    implementation(project(":core:core-network"))
-    implementation(project(":core:core-database"))
     implementation(project(":domain"))
+    implementation(project(":core:core-uikit"))
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.koin.core)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
     implementation(libs.timber)
-    api(libs.kotlinx.coroutines.android)
-    api(libs.kotlinx.coroutines.core)
-    api(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(libs.junit)
     testImplementation(kotlin("test"))
@@ -56,3 +54,4 @@ dependencies {
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("app.cash.turbine:turbine:1.0.0")
 }
+

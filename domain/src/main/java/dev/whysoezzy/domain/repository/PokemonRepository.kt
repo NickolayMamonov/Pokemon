@@ -15,4 +15,5 @@ interface PokemonRepository {
     suspend fun clearCache()
 
     suspend fun getCachedPokemonCount(): Int
+
 }

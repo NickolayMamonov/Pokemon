@@ -18,6 +18,7 @@ data class PokemonEntity(
     val imageUrl: String,
     val types: List<PokemonTypeEntity>,
     val stats: List<PokemonStatEntity>,
+    val isFavorite: Boolean = false,
     val lastUpdated: Long = System.currentTimeMillis(),
 )
 
