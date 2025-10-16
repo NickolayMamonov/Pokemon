@@ -25,9 +25,8 @@ class FavoritesViewModel(
     private fun loadFavorites() {
         viewModelScope.launch {
             _uiState.value = FavoritesUIState.Loading
-
-            getFavoritePokemonsUseCase()  // ← Возвращает Flow<List<Pokemon>>
-                .catch { error ->  // ← .catch() работает для Flow
+            getFavoritePokemonsUseCase()
+                .catch { error ->
                     Timber.e(error, "Error loading favorites")
                     _uiState.value = FavoritesUIState.Error(
                         error.message ?: "Ошибка загрузки избранных покемонов"

@@ -92,7 +92,6 @@ fun PokemonListScreen(
         }
     }
     Box(modifier = Modifier.fillMaxSize()) {
-
         Column(
             modifier =
                 Modifier

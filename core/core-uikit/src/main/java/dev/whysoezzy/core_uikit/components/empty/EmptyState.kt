@@ -177,7 +177,7 @@ object EmptyStates {
     }
 
     @Composable
-    fun NoFavourites(
+    fun NoFavorites(
         onOpenPokedex: () -> Unit,
         modifier: Modifier = Modifier
     ) {
@@ -306,7 +306,7 @@ private fun EmptyStateShowcase() {
             Box(modifier = Modifier.weight(1f)) {
                 when (currentState) {
                     0 -> EmptyStates.NoSearchResults(onClearFilters = { })
-                    1 -> EmptyStates.NoFavourites(onOpenPokedex = { })
+                    1 -> EmptyStates.NoFavorites(onOpenPokedex = { })
                     2 -> EmptyStates.NetworkError(onRetry = { })
                     3 -> EmptyStates.NoData()
                     4 -> EmptyStates.NoTeams(onCreateTeam = { })

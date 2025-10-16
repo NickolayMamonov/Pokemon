@@ -45,7 +45,7 @@ fun FavoritesScreen(
             }
 
             is FavoritesUIState.Empty -> {
-                EmptyStates.NoFavourites(
+                EmptyStates.NoFavorites(
                     onOpenPokedex = onNavigateToPokedex
                 )
             }
