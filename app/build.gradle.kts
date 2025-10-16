@@ -66,6 +66,8 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":features:feature-pokemon-list"))
     implementation(project(":features:feature-pokemon-details"))
+    implementation(project(":features:feature-favorites"))
+    implementation(project(":features:feature-settings"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

@@ -16,8 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.whysoezzy.core_common.extensions.toDisplayName
-import dev.whysoezzy.core_common.extensions.toTypeColor
+import dev.whysoezzy.core_uikit.extensions.toDisplayName
+import dev.whysoezzy.core_uikit.extensions.toTypeColor
+
 import dev.whysoezzy.domain.model.PokemonType
 
 @Composable

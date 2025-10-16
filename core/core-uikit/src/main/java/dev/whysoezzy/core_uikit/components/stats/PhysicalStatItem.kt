@@ -11,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import dev.whysoezzy.core_uikit.theme.PokemonTextStyles
+import dev.whysoezzy.core_uikit.theme.dimensions
 
 @Composable
 fun PhysicalStatItem(
@@ -29,21 +29,20 @@ fun PhysicalStatItem(
             imageVector = icon,
             contentDescription = label,
             tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.size(32.dp),
+            modifier = Modifier.size(dimensions().iconSizeLarge),
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(dimensions().spacerSmall))
 
         Text(
             text = label,
-            style = MaterialTheme.typography.bodyMedium,
+            style = PokemonTextStyles.StatLabel,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
         )
 
         Text(
             text = value,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
+            style = PokemonTextStyles.StatValue,
         )
     }
 }

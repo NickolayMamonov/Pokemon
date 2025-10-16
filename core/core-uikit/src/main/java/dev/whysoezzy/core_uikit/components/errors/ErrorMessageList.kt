@@ -13,9 +13,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import dev.whysoezzy.core_uikit.R
+import dev.whysoezzy.core_uikit.theme.dimensions
+import dev.whysoezzy.core_uikit.theme.spacing
 
 @Composable
 fun ErrorMessage(
@@ -26,18 +28,17 @@ fun ErrorMessage(
         modifier =
             Modifier
                 .fillMaxSize()
-                .padding(32.dp),
+                .padding(spacing().extraLarge),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = "Ошибка загрузки",
+            text = stringResource(R.string.loading_error),
             style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(dimensions().spacerSmall))
 
         Text(
             text = error,
@@ -46,13 +47,13 @@ fun ErrorMessage(
             textAlign = TextAlign.Center,
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(dimensions().spacerLarge))
 
         Button(
             onClick = onRetry,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text("Попробовать снова")
+            Text(stringResource(R.string.retry))
         }
     }
 }

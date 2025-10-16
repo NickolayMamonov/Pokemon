@@ -61,4 +61,16 @@ interface PokemonDao {
     // Search operations
     @Query("SELECT * FROM pokemon WHERE name LIKE '%' || :query || '%' ORDER BY name ASC")
     suspend fun searchPokemonByName(query: String): List<PokemonEntity>
+
+    @Query("SELECT * FROM pokemon WHERE isFavorite = 1 ORDER BY id ASC")
+    fun getFavoritePokemon(): Flow<List<PokemonEntity>>
+
+    @Query("SELECT COUNT(*) FROM pokemon WHERE isFavorite = 1")
+    suspend fun getFavoritesCount(): Int
+
+    @Query("UPDATE pokemon SET isFavorite = :isFavorite WHERE id = :pokemonId")
+    suspend fun updateFavoriteStatus(pokemonId: Int, isFavorite: Boolean)
+
+    @Query("SELECT isFavorite FROM pokemon WHERE id = :pokemonId")
+    suspend fun isFavorite(pokemonId: Int): Boolean?
 }
