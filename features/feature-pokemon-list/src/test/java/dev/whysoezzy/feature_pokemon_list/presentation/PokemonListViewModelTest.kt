@@ -2,6 +2,9 @@ package dev.whysoezzy.feature_pokemon_list.presentation
 
 import dev.whysoezzy.domain.model.PokemonFilter
 import dev.whysoezzy.domain.repository.PokemonRepository
+import dev.whysoezzy.domain.usecase.ToggleFavoriteUseCase
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,6 +23,7 @@ import org.junit.Test
 class PokemonListViewModelTest {
     private lateinit var viewModel: PokemonViewModel
     private lateinit var repository: PokemonRepository
+    private lateinit var toggleFavoriteUseCase: ToggleFavoriteUseCase
 
     private val testDispatcher = StandardTestDispatcher()
 
@@ -27,6 +31,7 @@ class PokemonListViewModelTest {
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
         repository = mockk(relaxed = true)
+        toggleFavoriteUseCase = mockk(relaxed = true)
     }
 
     @After
@@ -126,6 +131,47 @@ class PokemonListViewModelTest {
     }
 
     @Test
+    fun `test toggleFavorite calls use case`() = runTest {
+        val pokemonId = 1
+        coEvery { toggleFavoriteUseCase(pokemonId) } returns Result.success(true)
+
+        viewModel = createViewModel()
+        viewModel.toggleFavorite(pokemonId)
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        coVerify { toggleFavoriteUseCase(pokemonId) }
+    }
+
+    @Test
+    fun `test toggleFavorite handles success`() = runTest {
+        val pokemonId = 25
+        coEvery { toggleFavoriteUseCase(pokemonId) } returns Result.success(true)
+
+        viewModel = createViewModel()
+
+        // Должно выполниться без ошибок
+        viewModel.toggleFavorite(pokemonId)
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        coVerify(exactly = 1) { toggleFavoriteUseCase(pokemonId) }
+    }
+
+    @Test
+    fun `test toggleFavorite handles failure`() = runTest {
+        val pokemonId = 25
+        val exception = RuntimeException("Database error")
+        coEvery { toggleFavoriteUseCase(pokemonId) } returns Result.failure(exception)
+
+        viewModel = createViewModel()
+
+        // Должно выполниться без краша
+        viewModel.toggleFavorite(pokemonId)
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        coVerify(exactly = 1) { toggleFavoriteUseCase(pokemonId) }
+    }
+
+    @Test
     fun `test multiple filter updates`() = runTest {
         viewModel = createViewModel()
 
@@ -183,6 +229,7 @@ class PokemonListViewModelTest {
     }
 
     private fun createViewModel() = PokemonViewModel(
-        repository = repository
+        repository = repository,
+        toggleFavoriteUseCase = toggleFavoriteUseCase
     )
 }
