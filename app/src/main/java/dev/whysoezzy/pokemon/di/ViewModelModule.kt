@@ -3,6 +3,7 @@ package dev.whysoezzy.pokemon.di
 import dev.whysoezzy.feature_favorites.presentation.FavoritesViewModel
 import dev.whysoezzy.feature_pokemon_details.presentation.PokemonDetailsViewModel
 import dev.whysoezzy.feature_pokemon_list.presentation.PokemonViewModel
+import dev.whysoezzy.feature_settings.presentation.SettingsViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -15,5 +16,8 @@ val viewModelModule = module {
     }
     viewModel {
         FavoritesViewModel(get(), get())
+    }
+    viewModel {
+        SettingsViewModel(get(), get(), get())
     }
 }
