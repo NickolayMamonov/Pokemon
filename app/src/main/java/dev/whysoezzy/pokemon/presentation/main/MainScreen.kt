@@ -28,7 +28,8 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
     val shouldShowBottomBar = currentRoute in listOf(
         BottomNavItem.HOME.screen.route,
-        BottomNavItem.FAVORITES.screen.route
+        BottomNavItem.FAVORITES.screen.route,
+        BottomNavItem.SETTINGS.screen.route
     )
 
     Scaffold(

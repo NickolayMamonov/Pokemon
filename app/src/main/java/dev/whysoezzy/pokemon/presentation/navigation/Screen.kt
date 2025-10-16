@@ -7,8 +7,9 @@ sealed class Screen(val route: String) {
     object PokemonDetails : Screen("pokemon_details/{pokemonId}") {
         fun createRoute(pokemonId: Int) = "pokemon_details/$pokemonId"
     }
+    data object Favorites : Screen("favorites")
+    data object Settings : Screen("settings")
 
-    object Favorites : Screen("favorites")
 }
 
 enum class BottomNavItem(
@@ -28,5 +29,11 @@ enum class BottomNavItem(
         title = "Favorites",
         icon = R.drawable.outline_favorite_border_24,
         selectedIcon = R.drawable.outline_favorite
+    ),
+    SETTINGS(
+        screen = Screen.Settings,
+        title = "Settings",
+        icon = R.drawable.outline_settings,
+        selectedIcon = R.drawable.filled_settings
     )
 }
